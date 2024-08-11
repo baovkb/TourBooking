@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Views.Fragments.AdminEditTourDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="3dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="400dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
+                        <ImageView
+                            android:id="@+id/backBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/back_white"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="48dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <ImageView
+                            android:id="@+id/save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_bg"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_action_save"
+                            app:tint="@color/black"
+                            android:layout_marginEnd="24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/backBtn"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/backBtn" />
+
+                        <ImageView
+                            android:id="@+id/editBanner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/edit"
+                            android:tint="@color/blue"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="350dp"
+                        android:background="@drawable/top_corner_bg"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/title"
+                            android:hint="title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="25dp"
+                            android:background="@drawable/white_blue_corner_bg"
+                            android:inputType=""
+                            android:textAlignment="center"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="18dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/location" />
+
+                            <EditText
+                                android:id="@+id/address"
+                                android:paddingHorizontal="3dp"
+                                android:hint="address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/white_blue_corner_bg"
+                                android:textColor="@color/dark_blue"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <RatingBar
+                                android:id="@+id/ratingBar"
+                                style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:isIndicator="true"
+                                android:numStars="5"
+                                android:progressTint="@color/yellow"
+                                android:rating="3.6"
+                                android:scaleX="0.7"
+                                android:scaleY="0.7"
+                                android:stepSize="0.1"
+                                android:transformPivotX="0dp" />
+
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="3.6/5" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_marginHorizontal="25dp"
+                            android:orientation="horizontal">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="0.5"
+                                android:background="@drawable/gray_corner_10_bg">
+
+                                <ImageView
+                                    android:id="@+id/iconDuration"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/hourglass"
+                                    app:layout_constraintBottom_toTopOf="@+id/durationText"
+                                    app:layout_constraintEnd_toStartOf="@+id/valDuration"
+                                    app:layout_constraintHorizontal_chainStyle="packed"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_chainStyle="packed" />
+
+                                <EditText
+                                    android:id="@+id/valDuration"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:background="@drawable/white_blue_corner_bg"
+                                    app:layout_constraintBottom_toBottomOf="@+id/iconDuration"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/iconDuration"
+                                    app:layout_constraintTop_toTopOf="@+id/iconDuration" />
+
+                                <TextView
+                                    android:id="@+id/durationText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Duration"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/valDuration"
+                                    app:layout_constraintStart_toStartOf="@+id/iconDuration"
+                                    app:layout_constraintTop_toBottomOf="@+id/iconDuration" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:background="@drawable/gray_corner_10_bg">
+
+                                <ImageView
+                                    android:id="@+id/iconStartDate"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/startDateText"
+                                    app:layout_constraintEnd_toStartOf="@+id/valStartDate"
+                                    app:layout_constraintHorizontal_chainStyle="packed"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_chainStyle="packed"
+                                    app:srcCompat="@drawable/calendar" />
+
+                                <EditText
+                                    android:id="@+id/valStartDate"
+                                    android:layout_width="110dp"
+                                    android:paddingHorizontal="3dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:background="@drawable/white_blue_corner_bg"
+                                    app:layout_constraintBottom_toBottomOf="@+id/iconStartDate"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/iconStartDate"
+                                    app:layout_constraintTop_toTopOf="@+id/iconStartDate" />
+
+                                <TextView
+                                    android:id="@+id/startDateText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Start date"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/valStartDate"
+                                    app:layout_constraintStart_toStartOf="@+id/iconStartDate"
+                                    app:layout_constraintTop_toBottomOf="@+id/iconStartDate" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Price"
+                                android:textColor="@color/dark_blue"
+                                android:textSize="16sp" />
+
+                            <EditText
+                                android:id="@+id/price"
+                                android:hint="price"
+                                android:paddingHorizontal="3dp"
+                                android:layout_width="110dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/white_blue_corner_bg"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/Person"
+                                android:textSize="16sp">
+
+                            </TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView10"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Description"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_blue"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:paddingHorizontal="3dp"
+                                android:background="@drawable/white_blue_corner_bg"
+                                android:hint="description"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5">
+
+                                <TextView
+                                    android:id="@+id/categoryLabel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Category"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/dark_blue"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/category_icon"
+                                    android:layout_width="45dp"
+                                    android:layout_height="45dp"
+                                    android:layout_margin="8dp"
+                                    android:background="@drawable/gray_bg"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/category_spinner"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintHorizontal_chainStyle="packed"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
+
+                                <Spinner
+                                    android:id="@+id/category_spinner"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/white_blue_corner_bg"
+                                    app:layout_constraintBottom_toBottomOf="@+id/category_icon"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/category_icon"
+                                    app:layout_constraintTop_toTopOf="@+id/category_icon" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_marginHorizontal="8dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/dark_blue" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+
+                                <TextView
+                                    android:id="@+id/locationLabel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Location"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/dark_blue"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <Spinner
+                                    android:id="@+id/location_spinner"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    android:background="@drawable/white_blue_corner_bg"
+                                    app:layout_constraintHorizontal_bias="1.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/locationLabel" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="8dp"
+                            android:paddingBottom="25dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tourGuideLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tour guide"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_blue"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/tourGuideAvatar"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/gray_bg"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tourGuideLabel" />
+
+
+                            <EditText
+                                android:id="@+id/tourGuideName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/white_blue_corner_bg"
+                                android:hint="Tour guide name"
+                                android:textAlignment="center"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tourGuideAvatar" />
+
+                            <EditText
+                                android:id="@+id/tourGuidePhone"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textAlignment="center"
+                                android:background="@drawable/white_blue_corner_bg"
+                                android:hint="Tour guide phone"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tourGuideName" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

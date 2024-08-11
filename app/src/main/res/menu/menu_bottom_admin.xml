@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tours"
+        android:icon="@drawable/tour_bottom_admin"
+        android:title="@string/admin_bottom_menu_tour"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/blue" />
+    <item
+        android:id="@+id/users"
+        android:icon="@drawable/user_bottom_admin"
+        android:title="@string/admin_bottom_menu_user"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/blue" />
+    <item
+        android:id="@+id/locations"
+        android:icon="@drawable/location"
+        android:title="@string/admin_bottom_menu_location"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/blue" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/bottom_btn4"
+        android:title="@string/admin_bottom_menu_profile"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/blue" />
+
+</menu>

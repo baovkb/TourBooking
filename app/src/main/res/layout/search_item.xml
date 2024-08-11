@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/white_bg"
+    android:elevation="3dp"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="14dp"
+        android:scaleType="fitXY"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.roundedImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/title_view_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/dark_blue"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/image_view_holder"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_holder" />
+
+    <ImageView
+        android:id="@+id/location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/image_view_holder"
+        app:layout_constraintTop_toBottomOf="@+id/title_view_holder"
+        app:srcCompat="@drawable/location" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="address"
+        app:layout_constraintBottom_toBottomOf="@+id/location_icon"
+        app:layout_constraintEnd_toEndOf="@+id/image_view_holder"
+        app:layout_constraintStart_toEndOf="@+id/location_icon"
+        app:layout_constraintTop_toTopOf="@+id/location_icon" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="100000"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/image_view_holder"
+        app:layout_constraintTop_toBottomOf="@+id/address" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/Person"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@+id/price"
+        app:layout_constraintTop_toTopOf="@+id/price"
+        app:layout_constraintBottom_toBottomOf="@+id/price"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
