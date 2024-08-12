@@ -82,6 +82,22 @@ public class AccountRepository {
         return accountMutableLiveData;
     }
 
+    public void getAccountByUID(String uid, Callback<Account> callback) {
+        reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                    callback.onComplete(snapshot.getValue(Account.class));
+                else callback.onComplete(null);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public LiveData<FirebaseUser> getCurrentUser() {
         MutableLiveData<FirebaseUser> currentUser = new MutableLiveData<>();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {

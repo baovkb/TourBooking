@@ -5,12 +5,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.vkbao.travelbooking.Helper.Callback;
+import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.AccountViewModel;
 import com.vkbao.travelbooking.databinding.FragmentProfileBinding;
@@ -42,6 +46,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
+        loadContent();
         setUpItem();
     }
 
@@ -63,6 +68,16 @@ public class ProfileFragment extends Fragment {
                 accountViewModel.logoutUser();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+    }
+
+    private void loadContent() {
+        accountViewModel.getCurrentUser().observe(requireActivity(), user -> {
+            if (user != null) {
+                accountViewModel.getAccountByUID(user.getUid(), result -> {
+                    if (result != null) binding.name.setText(result.getName());
+                });
             }
         });
     }

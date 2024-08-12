@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.vkbao.travelbooking.Helper.Callback;
 import com.vkbao.travelbooking.Models.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationRepository {
@@ -25,10 +26,17 @@ public class LocationRepository {
 
     public LiveData<List<Location>> getAllLocation() {
         MutableLiveData<List<Location>> locationListLiveData = new MutableLiveData<>();
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Location> locationList = snapshot.getValue(new GenericTypeIndicator<List<Location>>() {});
+                List<Location> locationList = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    if (dataSnapshot.exists()) {
+                        locationList.add(dataSnapshot.getValue(Location.class));
+                    }
+                }
                 locationListLiveData.setValue(locationList);
             }
 

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/tranparent_bg"
     android:clipToOutline="true"
-    android:scaleType="fitXY"
+    android:scaleType="centerCrop"
     android:id="@+id/sliderImage">
 
 </ImageView>

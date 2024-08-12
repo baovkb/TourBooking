@@ -13,13 +13,8 @@
         android:theme="@style/Theme.TravelBooking"
         tools:targetApi="31" >
         <activity
-            android:name=".Views.Fragments.SignupFragment"
-            android:exported="false" />
-        <activity
-            android:name=".Views.Fragments.LoginFragment"
-            android:exported="false" />
-        <activity
             android:name=".Views.Activities.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".Views.Activities.BaseActivity"

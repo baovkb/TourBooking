@@ -77,6 +77,7 @@ public class AdminToursFragment extends Fragment {
         initLocation();
         initCategory();
         initTourList();
+        setUpAddBtn();
     }
 
     private void initLocation() {
@@ -210,5 +211,15 @@ public class AdminToursFragment extends Fragment {
                 .replace(R.id.main, adminTourDetailFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void setUpAddBtn() {
+        binding.addTourBtn.setOnClickListener(view -> {
+            getParentFragment().getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new AdminAddTourFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 }

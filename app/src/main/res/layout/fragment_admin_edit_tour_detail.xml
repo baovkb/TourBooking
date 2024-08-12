@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Views.Fragments.AdminEditTourDetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -47,21 +47,19 @@
                             android:id="@+id/backBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/back_white"
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="48dp"
+                            android:src="@drawable/back_white"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/white_bg"
-                            android:padding="9dp"
-                            android:src="@drawable/ic_action_save"
-                            app:tint="@color/black"
                             android:layout_marginEnd="24dp"
+                            android:padding="9dp"
+                            android:src="@drawable/upload"
                             app:layout_constraintBottom_toBottomOf="@+id/backBtn"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/backBtn" />
@@ -71,7 +69,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/edit"
-                            android:tint="@color/blue"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -91,12 +88,12 @@
 
                         <EditText
                             android:id="@+id/title"
-                            android:hint="title"
+                            android:drawableEnd="@drawable/pen"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="25dp"
-                            android:background="@drawable/white_blue_corner_bg"
-                            android:inputType=""
+                            android:hint="title"
+                            android:background="@color/transparent"
                             android:textAlignment="center"
                             android:textColor="@color/dark_blue"
                             android:textSize="24sp"
@@ -117,13 +114,14 @@
 
                             <EditText
                                 android:id="@+id/address"
-                                android:paddingHorizontal="3dp"
-                                android:hint="address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/white_blue_corner_bg"
+                                android:drawableEnd="@drawable/pen"
+                                android:background="@color/transparent"
+                                android:hint="address"
+                                android:paddingHorizontal="3dp"
                                 android:textColor="@color/dark_blue"
                                 android:textSize="16sp" />
 
@@ -190,7 +188,9 @@
                                     android:layout_width="110dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:background="@drawable/white_blue_corner_bg"
+                                    android:drawableEnd="@drawable/pen"
+                                    android:background="@color/transparent"
+                                    android:paddingHorizontal="3dp"
                                     app:layout_constraintBottom_toBottomOf="@+id/iconDuration"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/iconDuration"
@@ -229,10 +229,11 @@
                                 <EditText
                                     android:id="@+id/valStartDate"
                                     android:layout_width="110dp"
-                                    android:paddingHorizontal="3dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:background="@drawable/white_blue_corner_bg"
+                                    android:background="@color/transparent"
+                                    android:drawableEnd="@drawable/pen"
+                                    android:paddingHorizontal="3dp"
                                     app:layout_constraintBottom_toBottomOf="@+id/iconStartDate"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/iconStartDate"
@@ -269,12 +270,13 @@
 
                             <EditText
                                 android:id="@+id/price"
-                                android:hint="price"
-                                android:paddingHorizontal="3dp"
                                 android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:background="@drawable/white_blue_corner_bg"
+                                android:drawableEnd="@drawable/pen"
+                                android:background="@color/transparent"
+                                android:hint="price"
+                                android:paddingHorizontal="3dp"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -309,9 +311,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:paddingHorizontal="3dp"
-                                android:background="@drawable/white_blue_corner_bg"
+                                android:drawableEnd="@drawable/pen"
+                                android:background="@color/transparent"
                                 android:hint="description"
+                                android:paddingHorizontal="3dp"
                                 android:textSize="16sp" />
 
 
@@ -361,6 +364,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="4dp"
                                     android:background="@drawable/white_blue_corner_bg"
+                                    android:gravity="center"
                                     app:layout_constraintBottom_toBottomOf="@+id/category_icon"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/category_icon"
@@ -371,8 +375,8 @@
 
                             <View
                                 android:layout_width="1dp"
-                                android:layout_marginHorizontal="8dp"
                                 android:layout_height="match_parent"
+                                android:layout_marginHorizontal="8dp"
                                 android:background="@color/dark_blue" />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -397,10 +401,10 @@
                                     android:id="@+id/location_spinner"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:background="@drawable/white_blue_corner_bg"
+                                    android:gravity="center"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    android:background="@drawable/white_blue_corner_bg"
-                                    app:layout_constraintHorizontal_bias="1.0"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/locationLabel" />
 
@@ -413,8 +417,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="25dp"
                             android:layout_marginTop="8dp"
-                            android:paddingBottom="25dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingBottom="25dp">
 
                             <TextView
                                 android:id="@+id/tourGuideLabel"
@@ -445,8 +449,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:background="@drawable/white_blue_corner_bg"
+                                android:background="@color/transparent"
                                 android:hint="Tour guide name"
+                                android:drawableEnd="@drawable/pen"
                                 android:textAlignment="center"
                                 android:textSize="16sp"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -458,9 +463,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:textAlignment="center"
-                                android:background="@drawable/white_blue_corner_bg"
+                                android:background="@color/transparent"
                                 android:hint="Tour guide phone"
+                                android:drawableEnd="@drawable/pen"
+                                android:textAlignment="center"
                                 android:textSize="16sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -474,6 +480,6 @@
 
             </LinearLayout>
         </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </FrameLayout>

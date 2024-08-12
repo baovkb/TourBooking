@@ -1,13 +1,20 @@
 package com.vkbao.travelbooking.Views.Fragments;
 
+import static com.vkbao.travelbooking.Views.Fragments.AdminEditTourDetailFragment.KEY_RESULT_FRAGMENT;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +44,10 @@ public class AdminTourDetailFragment extends Fragment {
 
     private LocationViewModel locationViewModel;
     private CategoryViewModel categoryViewModel;
+    private ItemViewModel itemViewModel;
 
     private Item item = null;
+    private final String TAG = "AdminTourDetailFragment";
 
     public AdminTourDetailFragment() {
 
@@ -52,6 +61,11 @@ public class AdminTourDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        getParentFragmentManager().setFragmentResultListener(KEY_RESULT_FRAGMENT, getViewLifecycleOwner(), (requestKey, result) -> {
+            Item newItem = (Item) result.get("item");
+            if (newItem != null) this.item = newItem;
+        });
         // Inflate the layout for this fragment
         binding = FragmentAdminTourDetailBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -63,9 +77,16 @@ public class AdminTourDetailFragment extends Fragment {
 
         locationViewModel = new ViewModelProvider(requireActivity()).get(LocationViewModel.class);
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
+        itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
 
         initItem();
         setUpEvent();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadContent(item);
     }
 
     private void initItem() {
@@ -113,9 +134,42 @@ public class AdminTourDetailFragment extends Fragment {
         });
     }
 
+    public void confirmDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        String message = requireActivity().getString(R.string.dialog_delete_message);
+        String positiveBtn = requireActivity().getString(R.string.dialog_delete_ok);
+        String negativeBtn = requireActivity().getString(R.string.dialog_delete_cancel);
+
+        builder.setMessage(message);
+        builder.setPositiveButton(positiveBtn, (dialogInterface, i) -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            CompletableFuture<Boolean> deleteBannerFuture = itemViewModel.deleteBannerByID(item.getItem_id());
+            CompletableFuture<Boolean> deleteItemFuture = itemViewModel.deleteItemByID(item.getItem_id());
+
+            deleteBannerFuture
+                    .thenCombine(deleteItemFuture, (doneBanner, doneItem) -> doneItem)
+                    .thenAccept(done -> {
+                        if (done) fragmentManager.popBackStack();
+                        else {
+                            Log.d(TAG, "delete item is not successful");
+                        }
+                    });
+        });
+
+        builder.setNegativeButton(negativeBtn, (dialogInterface, i) -> {
+
+        });
+
+        builder.create().show();
+    }
+
     private void setUpEvent() {
         binding.backBtn.setOnClickListener(view -> {
             getParentFragmentManager().popBackStack();
+        });
+
+        binding.deleteBtn.setOnClickListener(view -> {
+            confirmDeleteDialog();
         });
 
         binding.edit.setOnClickListener(view -> {

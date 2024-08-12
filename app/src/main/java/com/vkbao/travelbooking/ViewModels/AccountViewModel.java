@@ -41,6 +41,10 @@ public class AccountViewModel extends AndroidViewModel {
         return accountRepository.getAccountByUID(uid);
     }
 
+    public void getAccountByUID(String uid, Callback<Account> callback) {
+        accountRepository.getAccountByUID(uid, callback);
+    }
+
     public void loginUser(String email, String password, Callback<Boolean> callback) {
         accountRepository.loginUser(email, password, callback);
     }

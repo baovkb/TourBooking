@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@drawable/white_bg"
-    android:elevation="3dp"
     android:layout_margin="8dp"
+    android:elevation="2dp"
     android:layout_height="wrap_content">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="14dp"
-        android:scaleType="fitXY"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.roundedImageView"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.roundedImageView"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
