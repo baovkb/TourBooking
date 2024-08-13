@@ -1,5 +1,8 @@
 package com.vkbao.travelbooking.Views.Fragments;
 
+import static com.vkbao.travelbooking.Helper.Helper.removeAccent;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,8 +13,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.vkbao.travelbooking.Adapters.SearchItemAdapter;
+import com.vkbao.travelbooking.Helper.UserItemTouch;
 import com.vkbao.travelbooking.Models.Category;
 import com.vkbao.travelbooking.Models.Item;
 import com.vkbao.travelbooking.Models.Location;
@@ -26,6 +34,7 @@ import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.CategoryViewModel;
 import com.vkbao.travelbooking.ViewModels.ItemViewModel;
 import com.vkbao.travelbooking.ViewModels.LocationViewModel;
+import com.vkbao.travelbooking.Views.Dialogs.ConfirmDialog;
 import com.vkbao.travelbooking.databinding.FragmentAdminToursBinding;
 
 import java.util.ArrayList;
@@ -38,10 +47,17 @@ public class AdminToursFragment extends Fragment {
     ItemViewModel itemViewModel;
     LocationViewModel locationViewModel;
     CategoryViewModel categoryViewModel;
+
     String locationID;
     String categoryID;
     Observer<List<Item>> itemByLocationCategoryObserver;
     MutableLiveData<List<Item>> itemListByLocationCategory;
+    MutableLiveData<List<Item>> itemsSearch;
+    private final String TAG = "AdminToursFragment";
+
+    String searchKeyword = "";
+
+    private ItemTouchHelper itemTouchHelper;
 
     Context context;
 
@@ -69,6 +85,7 @@ public class AdminToursFragment extends Fragment {
         itemByLocationCategoryObserver = itemList -> {
             itemListByLocationCategory.setValue(itemList);
         };
+        itemsSearch = new MutableLiveData<>(new ArrayList<>());
 
         itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         locationViewModel = new ViewModelProvider(requireActivity()).get(LocationViewModel.class);
@@ -77,6 +94,7 @@ public class AdminToursFragment extends Fragment {
         initLocation();
         initCategory();
         initTourList();
+        initSearch();
         setUpAddBtn();
     }
 
@@ -153,44 +171,71 @@ public class AdminToursFragment extends Fragment {
         });
     }
 
+    public void updateSearchKeyword(String newKeyword) {
+        this.searchKeyword = removeAccent(newKeyword.toLowerCase().trim());
+        List<Item> itemList = itemListByLocationCategory.getValue();
+
+        if (this.searchKeyword.isEmpty()) {
+            this.itemsSearch.setValue(itemList);
+        } else {
+            List<Item> tmpList = new ArrayList<>();
+            for (Item item: itemList) {
+                String title = removeAccent(item.getTitle().toLowerCase());
+                String address = removeAccent(item.getAddress().toLowerCase());
+
+                if (title.contains(searchKeyword) || address.contains(searchKeyword)) {
+                    tmpList.add(item);
+                }
+            }
+            itemsSearch.setValue(tmpList);
+        }
+    }
+
     private void initTourList() {
         itemListByLocationCategory.observe(getViewLifecycleOwner(), itemList -> {
+            updateSearchKeyword(this.searchKeyword);
+        });
+
+        itemsSearch.observe(getViewLifecycleOwner(), itemList -> {
             SearchItemAdapter adapter = new SearchItemAdapter(itemList);
             adapter.setOnItemClick(item -> {
                 startAdminTourDetailFragment(item);
-                /*
-                String itemLocationID = item.getLocation_id();
-                String itemCategoryID = item.getCategory_id();
-
-                CompletableFuture<Location> locationCompletableFuture = CompletableFuture.supplyAsync(() -> {
-                    CompletableFuture<Location> future = new CompletableFuture<>();
-                    locationViewModel.getLocationByID(itemLocationID, location -> {
-                        future.complete(location);
-                    });
-                    return future.join();
-                });
-
-                CompletableFuture<Category> itemCompletableFuture = CompletableFuture.supplyAsync(() -> {
-                    CompletableFuture<Category> future = new CompletableFuture<>();
-                    categoryViewModel.getCategoryByID(itemCategoryID, (category) -> {
-                        future.complete(category);
-                    });
-                    return future.join();
-                });
-
-                CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(locationCompletableFuture, itemCompletableFuture);
-                combinedFuture.thenRun(() -> {
-
-                });
-
-                 */
-
             });
+
+            //detach item touch
+            if (itemTouchHelper != null) {
+                itemTouchHelper.attachToRecyclerView(null);
+            }
+            UserItemTouch userItemTouch = new UserItemTouch(context, adapter);
+            userItemTouch.setOnItemSwipeListener(position -> {
+                confirmDeleteDialog(itemList.get(position), position);
+            });
+            itemTouchHelper = new ItemTouchHelper(userItemTouch);
+            itemTouchHelper.attachToRecyclerView(binding.recyclerViewItem);
 
             binding.recyclerViewItem.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             binding.recyclerViewItem.setAdapter(adapter);
 
             binding.progressBar.setVisibility(View.GONE);
+        });
+    }
+
+    public void initSearch() {
+        binding.search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                updateSearchKeyword(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
     }
 
@@ -221,5 +266,28 @@ public class AdminToursFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+    }
+
+    public void confirmDeleteDialog(Item item, int position) {
+        ConfirmDialog confirmDialog = new ConfirmDialog();
+
+        confirmDialog.setMessage(requireActivity().getString(R.string.dialog_delete_message));
+
+        confirmDialog.setPositiveBtn(() -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            CompletableFuture<Boolean> deleteBannerFuture = itemViewModel.deleteBannerByID(item.getItem_id());
+            CompletableFuture<Boolean> deleteItemFuture = itemViewModel.deleteItemByID(item.getItem_id());
+
+            deleteBannerFuture
+                    .thenCombine(deleteItemFuture, (doneBanner, doneItem) -> doneItem)
+                    .thenAccept(done -> {
+                        if (done) fragmentManager.popBackStack();
+                        else {
+                            Log.d(TAG, "delete item is not successful");
+                        }
+                    });
+        });
+
+        confirmDialog.show(getChildFragmentManager(), null);
     }
 }

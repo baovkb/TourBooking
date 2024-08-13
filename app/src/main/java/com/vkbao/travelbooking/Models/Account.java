@@ -6,6 +6,7 @@ public class Account {
     private String name;
     private String role;
     private String create_at;
+    private String cart_id;
 
     public Account() {
     }
@@ -14,12 +15,21 @@ public class Account {
         return create_at;
     }
 
-    public Account(String uid, String email, String name, String role, String create_at) {
+    public Account(String uid, String email, String name, String role, String create_at, String cart_id) {
         this.uid = uid;
         this.email = email;
         this.name = name;
         this.role = role;
         this.create_at = create_at;
+        this.cart_id = cart_id;
+    }
+
+    public String getCart_id() {
+        return cart_id;
+    }
+
+    public void setCart_id(String cart_id) {
+        this.cart_id = cart_id;
     }
 
     public String getUid() {

@@ -51,6 +51,10 @@ public class AdminFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.main_screen_fragment, new AdminToursFragment())
                         .commit();
+            } else if (i == R.id.users) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_screen_fragment, new ManageUserFragment())
+                        .commit();
             } else if (i == R.id.profile) {
                 fragmentManager
                         .beginTransaction()

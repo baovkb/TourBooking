@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AccountRepository {
     private DatabaseReference reference;
@@ -65,7 +66,8 @@ public class AccountRepository {
 
     public LiveData<Account> getAccountByUID(String uid) {
         MutableLiveData<Account> accountMutableLiveData = new MutableLiveData<>();
-        reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        reference.child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -98,15 +100,50 @@ public class AccountRepository {
         });
     }
 
+    public CompletableFuture<Account> getAccountByUIDFuture(String uid) {
+        return CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<Account> future = new CompletableFuture<>();
+
+            reference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        future.complete(snapshot.getValue(Account.class));
+                    } else future.complete(null);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    future.complete(null);
+                }
+            });
+            return future;
+        }).thenCompose(account -> account);
+    }
+
     public LiveData<FirebaseUser> getCurrentUser() {
         MutableLiveData<FirebaseUser> currentUser = new MutableLiveData<>();
-        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                currentUser.setValue(mAuth.getCurrentUser());
-            }
+
+        mAuth.addAuthStateListener(firebaseAuth -> {
+            currentUser.setValue(mAuth.getCurrentUser());
         });
         return currentUser;
+    }
+
+    public FirebaseUser getUser() {
+        return mAuth.getCurrentUser();
+    }
+
+    public CompletableFuture<Boolean> updateUser(Account newAccount) {
+        return CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+            reference.child(newAccount.getUid()).setValue(newAccount).addOnCompleteListener(task -> {
+                future.complete(task.isSuccessful());
+            });
+
+            return future;
+        }).thenCompose(success -> success);
     }
 
     public void signupUser(String email, String password, Callback<String> callback) {
@@ -115,11 +152,12 @@ public class AccountRepository {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         String create_at = Helper.getCurrentTimeString();
-                        Account account = new Account(user.getUid(), user.getEmail(), "", Role.User.name(), create_at);
+
+                        Account account = new Account(user.getUid(), user.getEmail(), "", Role.User.name(), create_at, "");
                         reference.child(user.getUid()).setValue(account)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful())
-                                        callback.onComplete("200");
+                                        callback.onComplete("SUCCESS");
                                     else {
                                         Exception exception = task1.getException();
                                         if (exception instanceof FirebaseAuthException) {
@@ -145,6 +183,12 @@ public class AccountRepository {
                         }
                     }
                 });
+    }
+
+    public void deleteUser(String accountID, Callback<Boolean> callback) {
+        reference.child(accountID).removeValue().addOnCompleteListener(task -> {
+            callback.onComplete(task.isSuccessful());
+        });
     }
 
     public void loginUser(String email, String password, Callback<Boolean> callback) {

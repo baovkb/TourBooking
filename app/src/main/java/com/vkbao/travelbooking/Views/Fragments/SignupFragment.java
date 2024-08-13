@@ -19,19 +19,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.vkbao.travelbooking.Helper.Callback;
 import com.vkbao.travelbooking.Helper.FormValidation;
 import com.vkbao.travelbooking.Models.Account;
+import com.vkbao.travelbooking.Models.Cart;
 import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.AccountViewModel;
+import com.vkbao.travelbooking.ViewModels.CartViewModel;
 import com.vkbao.travelbooking.databinding.FragmentSignupBinding;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
 public class SignupFragment extends Fragment {
     private FragmentSignupBinding binding;
     private AccountViewModel accountViewModel;
+    private CartViewModel cartViewModel;
 
     public SignupFragment() {
     }
@@ -47,11 +53,13 @@ public class SignupFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
+
         initSignUp();
     }
 
     public void initSignUp() {
-        accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
         FormValidation formValidation = new FormValidation(getContext());
 
         binding.email.setOnFocusChangeListener((view, b) -> {
@@ -93,10 +101,23 @@ public class SignupFragment extends Fragment {
                 String email = binding.email.getText().toString().trim();
                 String password = binding.password.getText().toString().trim();
 
-                Log.d("test", "test");
                 accountViewModel.signupUser(email, password, result -> {
                     switch (result) {
-                        case "200":
+                        case "SUCCESS":
+                            FirebaseUser user = accountViewModel.getUser();
+                            String cartID = cartViewModel.createID();
+
+                            CompletableFuture<Account> getAccountFuture = accountViewModel.getAccountByUIDFuture(user.getUid());
+                            CompletableFuture<Boolean> createCartFuture = cartViewModel.createCart(new Cart(cartID, user.getUid(), new HashMap<>()));
+
+                            getAccountFuture.thenCombine(createCartFuture, (account, success) -> {
+                                if (account != null && success) {
+                                    account.setCart_id(cartID);
+                                    accountViewModel.updateUser(account);
+                                }
+
+                                return null;
+                            });
 
                             break;
                     }

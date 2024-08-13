@@ -14,7 +14,7 @@
     <!--    Bottom Menu-->
     <string name="bottom_menu_home">Home</string>
     <string name="bottom_menu_explorer">Explorer</string>
-    <string name="bottom_menu_bookmark">Bookmark</string>
+    <string name="bottom_menu_cart">Cart</string>
     <string name="bottom_menu_profile">Profile</string>
 
     <!--    Login-->
@@ -60,4 +60,21 @@
     <string name="dialog_delete_ok">OK</string>
     <string name="dialog_delete_cancel">Cancel</string>
 
+<!--    Manage user-->
+    <string name="manage_user_search_hint">UID, name…</string>
+    <string name="manage_user_name_user_hint">(Name)</string>
+    <string name="manage_user_email_user_hint">(Email)</string>
+    <string name="manage_user_uid_hint">(UID)</string>
+    <string name="manage_user_create_at_hint">(Create at)></string>
+    <string name="manage_user_role_hint">(Role)</string>
+
+    <string name="manage_user_name_label">Name</string>
+    <string name="manage_user_uid_label">UID</string>
+    <string name="manage_user_email_label">Email</string>
+    <string name="manage_user_create_at_label">Create at</string>
+    <string name="manage_user_role_label">Role</string>
+
+    <string name="delete_user_message">Do you want to delete this user?</string>
+    <string name="delete_user_success">Delete user successfully</string>
+    <string name="delete_user_error">Something went wrong!</string>
 </resources>

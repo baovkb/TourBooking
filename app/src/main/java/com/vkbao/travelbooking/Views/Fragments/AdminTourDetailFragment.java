@@ -32,6 +32,7 @@ import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.CategoryViewModel;
 import com.vkbao.travelbooking.ViewModels.ItemViewModel;
 import com.vkbao.travelbooking.ViewModels.LocationViewModel;
+import com.vkbao.travelbooking.Views.Dialogs.ConfirmDialog;
 import com.vkbao.travelbooking.databinding.FragmentAdminTourDetailBinding;
 import com.vkbao.travelbooking.databinding.FragmentAdminToursBinding;
 import com.vkbao.travelbooking.databinding.FragmentTourDetailBinding;
@@ -135,13 +136,10 @@ public class AdminTourDetailFragment extends Fragment {
     }
 
     public void confirmDeleteDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        String message = requireActivity().getString(R.string.dialog_delete_message);
-        String positiveBtn = requireActivity().getString(R.string.dialog_delete_ok);
-        String negativeBtn = requireActivity().getString(R.string.dialog_delete_cancel);
+        ConfirmDialog confirmDialog = new ConfirmDialog();
+        confirmDialog.setMessage(requireActivity().getString(R.string.dialog_delete_message));
 
-        builder.setMessage(message);
-        builder.setPositiveButton(positiveBtn, (dialogInterface, i) -> {
+        confirmDialog.setPositiveBtn(() -> {
             FragmentManager fragmentManager = getParentFragmentManager();
             CompletableFuture<Boolean> deleteBannerFuture = itemViewModel.deleteBannerByID(item.getItem_id());
             CompletableFuture<Boolean> deleteItemFuture = itemViewModel.deleteItemByID(item.getItem_id());
@@ -156,12 +154,9 @@ public class AdminTourDetailFragment extends Fragment {
                     });
         });
 
-        builder.setNegativeButton(negativeBtn, (dialogInterface, i) -> {
-
-        });
-
-        builder.create().show();
+        confirmDialog.show(getChildFragmentManager(), null);
     }
+
 
     private void setUpEvent() {
         binding.backBtn.setOnClickListener(view -> {

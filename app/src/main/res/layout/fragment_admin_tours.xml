@@ -9,7 +9,6 @@
     android:foregroundTint="@color/white"
     tools:context=".Views.Fragments.AdminToursFragment">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -66,7 +65,7 @@
                 android:background="@drawable/gray_bg">
 
                 <EditText
-                    android:id="@+id/textView2"
+                    android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@color/transparent"

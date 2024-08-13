@@ -14,6 +14,7 @@ import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.Repositories.AccountRepository;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AccountViewModel extends AndroidViewModel {
     private AccountRepository accountRepository;
@@ -45,11 +46,27 @@ public class AccountViewModel extends AndroidViewModel {
         accountRepository.getAccountByUID(uid, callback);
     }
 
+    public CompletableFuture<Account> getAccountByUIDFuture(String uid) {
+        return accountRepository.getAccountByUIDFuture(uid);
+    }
+
     public void loginUser(String email, String password, Callback<Boolean> callback) {
         accountRepository.loginUser(email, password, callback);
     }
 
     public void logoutUser() {
         accountRepository.logoutUser();
+    }
+
+    public void deleteUser(String accountID, Callback<Boolean> callback) {
+        accountRepository.deleteUser(accountID, callback);
+    }
+
+    public CompletableFuture<Boolean> updateUser(Account newAccount) {
+        return accountRepository.updateUser(newAccount);
+    }
+
+    public FirebaseUser getUser() {
+        return accountRepository.getUser();
     }
 }

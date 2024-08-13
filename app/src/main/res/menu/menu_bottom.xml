@@ -16,8 +16,8 @@
         app:cnb_backgroundColor="@color/blue" />
     <item
         android:id="@+id/cart"
-        android:icon="@drawable/bottom_btn3"
-        android:title="@string/bottom_menu_bookmark"
+        android:icon="@drawable/cart"
+        android:title="@string/bottom_menu_cart"
         app:cnb_iconColor="@color/white"
         app:cnb_backgroundColor="@color/blue" />
     <item

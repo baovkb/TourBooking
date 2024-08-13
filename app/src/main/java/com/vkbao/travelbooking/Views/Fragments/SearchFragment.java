@@ -1,5 +1,7 @@
 package com.vkbao.travelbooking.Views.Fragments;
 
+import static com.vkbao.travelbooking.Helper.Helper.removeAccent;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -93,7 +95,7 @@ public class SearchFragment extends Fragment {
     private void updateKeyword(List<Item> itemList, String keyword) {
         keyword = keyword.trim().toLowerCase();
         if (!keyword.isEmpty()) {
-            this.keyword = keyword;
+            this.keyword = removeAccent(keyword);
             List<Item> tmpList = new ArrayList<>();
 
             for (Item item: itemList) {
@@ -102,7 +104,7 @@ public class SearchFragment extends Fragment {
                 String title = item.getTitle().toLowerCase();
                 title = removeAccent(title);
 
-                if (address.contains(keyword) || title.contains(keyword)) {
+                if (address.contains(this.keyword) || title.contains(this.keyword)) {
                     tmpList.add(item);
                 }
             }
@@ -110,18 +112,6 @@ public class SearchFragment extends Fragment {
         } else {
             itemSearchList.setValue(new ArrayList<>());
         }
-    }
-
-    private String removeAccent(String string) {
-        String normalizedString = Normalizer.normalize(string, Normalizer.Form.NFD);
-
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        String result = pattern.matcher(normalizedString).replaceAll("");
-
-        result = result.replace("Đ", "d");
-        result = result.replace("đ", "d");
-
-        return result;
     }
 
     private void startTourDetailFragment(Item item) {

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.vkbao.travelbooking.Helper.Callback;
 import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.Models.Role;
 import com.vkbao.travelbooking.ViewModels.AccountViewModel;
@@ -35,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
         accountViewModel.getCurrentUser().observe(this, firebaseUser -> {
             for (Fragment fragment: fragmentManager.getFragments()) {
-                fragmentManager.popBackStackImmediate();
+                fragmentManager.popBackStack();
             }
 
             if (firebaseUser == null) {
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity {
                         .commit();
             } else {
                 String uid = firebaseUser.getUid();
+
                 accountViewModel.getAccountByUID(uid).observe(this, account -> {
                     if (account != null) {
                         if (account.getRole().equals(Role.User.name())) {

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/manage_user_bg"
+    android:layout_width="wrap_content"
+    android:elevation="3dp"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/light_gray"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.circleImageView"
+        app:srcCompat="@drawable/user" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        android:columnCount="2"
+        android:rowCount="5">
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_user_name_label"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:text="test"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/uid_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_user_uid_label"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/uid"
+            android:layout_width="wrap_content"
+            android:text="test"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_user_email_label"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:text="test"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/create_at_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_user_create_at_label"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/create_at"
+            android:layout_width="wrap_content"
+            android:text="test"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/role_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_user_role_label"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/role"
+            android:layout_width="wrap_content"
+            android:text="test"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content" />
+
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
