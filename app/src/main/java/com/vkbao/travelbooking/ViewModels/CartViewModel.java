@@ -33,4 +33,8 @@ public class CartViewModel extends AndroidViewModel {
     public CompletableFuture<Boolean> addCartItem(String cartID, Cart.CartItem cartItem) {
         return cartRepository.addCartItem(cartID, cartItem);
     }
+
+    public CompletableFuture<Boolean> deleteCart(String cartID) {
+        return cartRepository.deleteCart(cartID);
+    }
 }

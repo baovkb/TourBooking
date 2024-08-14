@@ -17,9 +17,11 @@ import android.widget.Toast;
 import com.vkbao.travelbooking.Adapters.ManageUserAdapter;
 import com.vkbao.travelbooking.Helper.UserItemTouch;
 import com.vkbao.travelbooking.Clients.AccountClient;
+import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.Services.AccountService;
 import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.AccountViewModel;
+import com.vkbao.travelbooking.ViewModels.CartViewModel;
 import com.vkbao.travelbooking.Views.Dialogs.ConfirmDialog;
 import com.vkbao.travelbooking.databinding.FragmentManageUserBinding;
 
@@ -32,6 +34,7 @@ import retrofit2.Response;
 public class ManageUserFragment extends Fragment {
     private FragmentManageUserBinding binding;
     private AccountViewModel accountViewModel;
+    private CartViewModel cartViewModel;
     private AccountService accountService;
 
     private ItemTouchHelper itemTouchHelper;
@@ -60,6 +63,7 @@ public class ManageUserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
+        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
         accountService = AccountClient.getClient().create(AccountService.class);
 
         initUsers();
@@ -72,7 +76,7 @@ public class ManageUserFragment extends Fragment {
             if (itemTouchHelper != null) itemTouchHelper.attachToRecyclerView(null);
             UserItemTouch userItemTouch = new UserItemTouch(requireContext(), adapter);
             userItemTouch.setOnItemSwipeListener(position -> {
-                handleDeleteAction(accounts.get(position).getUid(), adapter, position);
+                handleDeleteAction(accounts.get(position));
             });
             itemTouchHelper = new ItemTouchHelper(userItemTouch);
 
@@ -82,16 +86,27 @@ public class ManageUserFragment extends Fragment {
         });
     }
 
-    private void handleDeleteAction(String uid, ManageUserAdapter adapter, int position) {
+    private void handleDeleteAction(Account account) {
         ConfirmDialog dialog = new ConfirmDialog();
 
         dialog.setMessage(getString(R.string.delete_user_message));
 
         dialog.setPositiveBtn(() -> {
-            deleteUser(uid).thenAccept(success -> {
-                if (success) Toast.makeText(getActivity(), getContext().getString(R.string.delete_user_success), Toast.LENGTH_SHORT).show();
-                else Toast.makeText(getActivity(), getContext().getString(R.string.delete_user_error), Toast.LENGTH_SHORT).show();
+            //delete cart
+            CompletableFuture<Boolean> deleteCartFuture = cartViewModel.deleteCart(account.getCart_id());
+
+            //delete user
+            deleteUser(account.getUid()).thenCombine(deleteCartFuture, (deleteAccountSuccess, deleteCartSuccess) ->  {
+                if (deleteAccountSuccess && deleteCartSuccess) {
+                    Toast.makeText(getActivity(), getContext().getString(R.string.delete_user_success), Toast.LENGTH_SHORT).show();
+                } else if (deleteAccountSuccess && !deleteCartSuccess) {
+                    Toast.makeText(getActivity(), getContext().getString(R.string.delete_user_success), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), getContext().getString(R.string.delete_user_error), Toast.LENGTH_SHORT).show();
+                }
+                return true;
             });
+
         });
 
         dialog.show(getChildFragmentManager(), null);

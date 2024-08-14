@@ -108,7 +108,7 @@ public class AdminTourDetailFragment extends Fragment {
         binding.address.setText(item.getAddress());
         binding.valDuration.setText(item.getDuration());
         binding.valStartDate.setText(item.getDateTour());
-        binding.price.setText(item.getPrice());
+        binding.price.setText(String.valueOf(item.getPrice()));
         binding.description.setText(item.getDescription());
         binding.tourGuideName.setText(item.getTourGuideName());
         binding.tourGuidePhone.setText(item.getTourGuidePhone());

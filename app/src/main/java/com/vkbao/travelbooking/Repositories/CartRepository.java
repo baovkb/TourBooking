@@ -85,4 +85,16 @@ public class CartRepository {
             return future;
         }).thenCompose(success -> success);
     }
+
+    public CompletableFuture<Boolean> deleteCart(String cartID) {
+        return CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+            reference.child(cartID).removeValue().addOnCompleteListener(task -> {
+                future.complete(task.isSuccessful());
+            });
+
+            return future;
+        }).thenCompose(success -> success);
+    }
 }

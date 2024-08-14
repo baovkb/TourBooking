@@ -82,8 +82,8 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Se
             binding.address.setText(address);
         }
 
-        public void setPrice(String price) {
-            binding.price.setText(price);
+        public void setPrice(int price) {
+            binding.price.setText(String.valueOf(price));
         }
     }
 

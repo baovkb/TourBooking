@@ -40,6 +40,10 @@ public class ItemViewModel extends AndroidViewModel {
         itemRepository.getItemByID(itemID, callback);
     }
 
+    public CompletableFuture<Item> getItemByIDFuture(String itemID) {
+        return itemRepository.getItemByIDFuture(itemID);
+    }
+
     public CompletableFuture<Boolean> updateItem(Item newItem) {
         return itemRepository.updateItem(newItem);
     }

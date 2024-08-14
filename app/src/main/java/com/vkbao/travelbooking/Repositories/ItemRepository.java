@@ -139,6 +139,28 @@ public class ItemRepository {
         });
     }
 
+    public CompletableFuture<Item> getItemByIDFuture(String itemID) {
+        return CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<Item> future = new CompletableFuture<>();
+
+            reference.child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        future.complete(snapshot.getValue(Item.class));
+                    } else future.complete(null);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    future.complete(null);
+                }
+            });
+
+            return future;
+        }).thenCompose(item -> item);
+    }
+
     public String createID() {
         return reference.push().getKey();
     }

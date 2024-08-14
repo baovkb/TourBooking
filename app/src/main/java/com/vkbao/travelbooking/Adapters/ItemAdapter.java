@@ -86,8 +86,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             binding.address.setText(address);
         }
 
-        public void setPrice(String price) {
-            binding.price.setText(price);
+        public void setPrice(int price) {
+            binding.price.setText(String.valueOf(price));
         }
     }
 

@@ -60,7 +60,7 @@
                             android:padding="8dp"
                             android:layout_marginEnd="24dp"
                             android:background="@drawable/white_bg"
-                            android:src="@drawable/cart"
+                            android:src="@drawable/cart_add"
                             app:layout_constraintBottom_toBottomOf="@+id/backBtn"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/backBtn" />

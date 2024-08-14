@@ -181,7 +181,7 @@ public class AdminEditTourDetailFragment extends Fragment {
             String address = binding.address.getText().toString();
             String duration = binding.valDuration.getText().toString();
             String dateTour = binding.valStartDate.getText().toString();
-            String price = binding.price.getText().toString();
+            int price = Integer.parseInt(binding.price.getText().toString());
             String description = binding.description.getText().toString();
             String tourGuideName = binding.tourGuideName.getText().toString();
             String tourGuidePhone = binding.tourGuidePhone.getText().toString();

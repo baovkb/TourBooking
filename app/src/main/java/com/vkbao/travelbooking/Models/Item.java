@@ -14,7 +14,7 @@ public class Item implements Parcelable {
     private String dateTour;
     private String description;
     private String duration;
-    private String price;
+    private int price;
     private String title;
     private String tourGuideName;
     private String tourGuidePhone;
@@ -23,7 +23,7 @@ public class Item implements Parcelable {
     public Item() {
     }
 
-    public Item(String item_id, String category_id, String location_id, String address, String banner, String dateTour, String description, String duration, String price, String title, String tourGuideName, String tourGuidePhone, String tourGuidePic) {
+    public Item(String item_id, String category_id, String location_id, String address, String banner, String dateTour, String description, String duration, int price, String title, String tourGuideName, String tourGuidePhone, String tourGuidePic) {
         this.item_id = item_id;
         this.category_id = category_id;
         this.location_id = location_id;
@@ -48,7 +48,7 @@ public class Item implements Parcelable {
         dateTour = in.readString();
         description = in.readString();
         duration = in.readString();
-        price = in.readString();
+        price = in.readInt();
         title = in.readString();
         tourGuideName = in.readString();
         tourGuidePhone = in.readString();
@@ -131,11 +131,11 @@ public class Item implements Parcelable {
         this.duration = duration;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -186,7 +186,7 @@ public class Item implements Parcelable {
         parcel.writeString(dateTour);
         parcel.writeString(description);
         parcel.writeString(duration);
-        parcel.writeString(price);
+        parcel.writeInt(price);
         parcel.writeString(title);
         parcel.writeString(tourGuideName);
         parcel.writeString(tourGuidePhone);
