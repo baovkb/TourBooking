@@ -174,7 +174,7 @@ public class AdminAddTourFragment extends Fragment {
 
     private void popFragment(Item newItem) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("item", newItem);
+        bundle.putSerializable("item", newItem);
         getParentFragmentManager().setFragmentResult(KEY_RESULT_FRAGMENT, bundle);
         getParentFragmentManager().popBackStack();
     }

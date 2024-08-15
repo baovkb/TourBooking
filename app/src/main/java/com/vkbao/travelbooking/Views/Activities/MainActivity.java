@@ -47,25 +47,29 @@ public class MainActivity extends BaseActivity {
             } else {
                 String uid = firebaseUser.getUid();
 
-                accountViewModel.getAccountByUID(uid).observe(this, account -> {
-                    if (account != null) {
-                        if (account.getRole().equals(Role.User.name())) {
-                            Log.d(TAG, "user is logged in");
+                accountViewModel.getAccountByUID(uid).observe(this, new Observer<Account>() {
+                    @Override
+                    public void onChanged(Account account) {
+                        if (account != null) {
+                            if (account.getRole().equals(Role.User.name())) {
+                                Log.d(TAG, "user is logged in");
 
-                            fragmentManager
-                                    .beginTransaction()
-                                    .replace(binding.main.getId(), new UserFragment())
-                                    .commit();
-                        } else if (account.getRole().equals(Role.Admin.name())) {
-                            Log.d(TAG, "admin is logged in");
+                                fragmentManager
+                                        .beginTransaction()
+                                        .replace(binding.main.getId(), new UserFragment())
+                                        .commit();
+                            } else if (account.getRole().equals(Role.Admin.name())) {
+                                Log.d(TAG, "admin is logged in");
 
-                            fragmentManager
-                                    .beginTransaction()
-                                    .replace(binding.main.getId(), new AdminFragment())
-                                    .commit();
+                                fragmentManager
+                                        .beginTransaction()
+                                        .replace(binding.main.getId(), new AdminFragment())
+                                        .commit();
+                            }
+                            accountViewModel.getAccountByUID(uid).removeObserver(this);
+                        } else {
+                            Log.d(TAG, "account is not exist");
                         }
-                    } else {
-                        Log.d(TAG, "account is not exist");
                     }
                 });
             }

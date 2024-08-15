@@ -44,6 +44,7 @@
     <!--    Profile-->
     <string name="profile_overview">Account overview</string>
     <string name="profile_my_profile">My profile</string>
+    <string name="profile_my_ticket">My ticket</string>
     <string name="profile_change_password">Change password</string>
     <string name="profile_change_change_language">Change language</string>
     <string name="profile_logout">Logout</string>
@@ -80,4 +81,6 @@
 
     <string name="payment_detail">Payment detail</string>
     <string name="payment_payment">Payment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

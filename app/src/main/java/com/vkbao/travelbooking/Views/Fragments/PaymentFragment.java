@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.vkbao.travelbooking.Adapters.ItemPaymentAdapter;
 import com.vkbao.travelbooking.Helper.Helper;
@@ -131,11 +132,9 @@ public class PaymentFragment extends Fragment {
                             //handle payment, if success -> update invoice
                             invoiceViewModel.waitingForPayment(invoice_id).observe(getViewLifecycleOwner(), aBoolean -> {
                                 if (aBoolean) {
-                                    //create ticket
-                                    order.getItem().forEach((s, orderItem) -> {
-                                        for (int i = 0; i < orderItem.getQuantity(); ++i)
-                                            createTicket(s);
-                                    });
+                                    Toast.makeText(getContext(), "Payment successful", Toast.LENGTH_SHORT).show();
+
+                                    createTicketAndNavigate();
                                 }
                             });
 
@@ -150,9 +149,27 @@ public class PaymentFragment extends Fragment {
         });
     }
 
-    public CompletableFuture<Boolean> createTicket(String item_id) {
-        String ticket_id = ticketViewModel.createID();
-        Ticket ticket = new Ticket(ticket_id, order.getOrder_id(), item_id, order.getAccount_id());
-        return ticketViewModel.addTicket(ticket);
+    public void createTicketAndNavigate() {
+        CompletableFuture.runAsync(() -> {
+            List<CompletableFuture<Boolean>> createTicketsFuture = new ArrayList<>();
+
+            order.getItem().forEach((s, orderItem) -> {
+                for (int i = 0; i < orderItem.getQuantity(); ++i) {
+                    String ticket_id = ticketViewModel.createID();
+                    Ticket ticket = new Ticket(ticket_id, order.getOrder_id(), orderItem.getItem_id(), order.getAccount_id());
+
+                    createTicketsFuture.add(ticketViewModel.addTicket(ticket));
+                }
+            });
+
+            CompletableFuture.allOf(createTicketsFuture.toArray(new CompletableFuture[0]));
+
+            //navigate to my ticket fragment
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new MyTicketFragment())
+                    .commit();
+        });
+
     }
 }

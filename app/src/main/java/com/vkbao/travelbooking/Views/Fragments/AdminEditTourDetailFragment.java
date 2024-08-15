@@ -84,7 +84,7 @@ public class AdminEditTourDetailFragment extends Fragment {
 
     private void initItem() {
         if (getArguments() != null) {
-            item = getArguments().getParcelable("item");
+            item = (Item) getArguments().getSerializable("item");
             loadContent(item);
             setUpEvent();
             bannerUrl = item.getBanner();
@@ -99,7 +99,7 @@ public class AdminEditTourDetailFragment extends Fragment {
         binding.address.setText(item.getAddress());
         binding.valDuration.setText(item.getDuration());
         binding.valStartDate.setText(item.getDateTour());
-        binding.price.setText(item.getPrice());
+        binding.price.setText(String.valueOf(item.getPrice()));
         binding.description.setText(item.getDescription());
         binding.tourGuideName.setText(item.getTourGuideName());
         binding.tourGuidePhone.setText(item.getTourGuidePhone());
@@ -224,7 +224,7 @@ public class AdminEditTourDetailFragment extends Fragment {
 
     private void popFragment(Item newItem) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("item", newItem);
+        bundle.putSerializable("item", newItem);
         getParentFragmentManager().setFragmentResult(KEY_RESULT_FRAGMENT, bundle);
         getParentFragmentManager().popBackStack();
     }

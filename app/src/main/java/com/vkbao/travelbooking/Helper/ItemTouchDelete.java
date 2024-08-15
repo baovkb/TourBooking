@@ -2,20 +2,16 @@ package com.vkbao.travelbooking.Helper;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.R;
 
-public class UserItemTouch extends ItemTouchHelper.SimpleCallback {
+public class ItemTouchDelete extends ItemTouchHelper.SimpleCallback {
     public interface OnSwipeItem<T> {
         public void onSwipe(T position);
     }
@@ -29,7 +25,7 @@ public class UserItemTouch extends ItemTouchHelper.SimpleCallback {
         return false;
     }
 
-    public UserItemTouch(Context context, RecyclerView.Adapter adapter) {
+    public ItemTouchDelete(Context context, RecyclerView.Adapter adapter) {
         super(0, ItemTouchHelper.LEFT);
         iconDelete = context.getDrawable(R.drawable.trash);
         this.adapter = adapter;

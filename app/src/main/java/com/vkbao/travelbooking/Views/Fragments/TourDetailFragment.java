@@ -68,7 +68,7 @@ public class TourDetailFragment extends Fragment {
 
     public void initItem() {
         if (getArguments() != null) {
-            item = getArguments().getParcelable("item");
+            item = (Item)getArguments().getSerializable("item");
         }
 
         if (item != null) {

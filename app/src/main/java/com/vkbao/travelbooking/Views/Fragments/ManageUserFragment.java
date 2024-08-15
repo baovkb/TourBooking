@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.vkbao.travelbooking.Adapters.ManageUserAdapter;
-import com.vkbao.travelbooking.Helper.UserItemTouch;
+import com.vkbao.travelbooking.Helper.ItemTouchDelete;
 import com.vkbao.travelbooking.Clients.AccountClient;
 import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.Services.AccountService;
@@ -74,11 +74,11 @@ public class ManageUserFragment extends Fragment {
             ManageUserAdapter adapter = new ManageUserAdapter(accounts);
 
             if (itemTouchHelper != null) itemTouchHelper.attachToRecyclerView(null);
-            UserItemTouch userItemTouch = new UserItemTouch(requireContext(), adapter);
-            userItemTouch.setOnItemSwipeListener(position -> {
+            ItemTouchDelete itemTouchDelete = new ItemTouchDelete(requireContext(), adapter);
+            itemTouchDelete.setOnItemSwipeListener(position -> {
                 handleDeleteAction(accounts.get(position));
             });
-            itemTouchHelper = new ItemTouchHelper(userItemTouch);
+            itemTouchHelper = new ItemTouchHelper(itemTouchDelete);
 
             itemTouchHelper.attachToRecyclerView(binding.recyclerViewUsers);
             binding.recyclerViewUsers.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));

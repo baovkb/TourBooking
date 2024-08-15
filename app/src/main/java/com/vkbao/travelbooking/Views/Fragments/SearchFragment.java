@@ -118,7 +118,7 @@ public class SearchFragment extends Fragment {
         FragmentManager fragmentManager = getParentFragmentManager();
 
         Bundle bundle = new Bundle();
-        bundle.putParcelable("item", item);
+        bundle.putSerializable("item", item);
         TourDetailFragment tourDetailFragment = new TourDetailFragment();
         tourDetailFragment.setArguments(bundle);
 

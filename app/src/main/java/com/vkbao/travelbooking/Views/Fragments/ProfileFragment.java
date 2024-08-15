@@ -55,6 +55,14 @@ public class ProfileFragment extends Fragment {
 
         });
 
+        binding.myTicket.setOnClickListener(view -> {
+            getParentFragment().getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new MyTicketFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         binding.changePassword.setOnClickListener(view -> {
 
         });

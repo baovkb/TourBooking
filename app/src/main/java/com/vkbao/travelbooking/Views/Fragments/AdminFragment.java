@@ -17,6 +17,7 @@ import com.vkbao.travelbooking.databinding.FragmentAdminBinding;
 
 public class AdminFragment extends Fragment {
     FragmentAdminBinding binding;
+    private int chipNavID = -1;
 
     public AdminFragment() {
         // Required empty public constructor
@@ -44,6 +45,7 @@ public class AdminFragment extends Fragment {
 
     public void initChipNavigation() {
         binding.chipNavigation.setOnItemSelectedListener(i -> {
+            chipNavID = i;
             FragmentManager fragmentManager = getChildFragmentManager();
 
             if (i == R.id.tours) {
@@ -63,6 +65,7 @@ public class AdminFragment extends Fragment {
             }
         });
 
-        binding.chipNavigation.setItemSelected(R.id.tours, true);
+        if (chipNavID == -1) binding.chipNavigation.setItemSelected(R.id.tours, true);
+        else binding.chipNavigation.setItemSelected(chipNavID, true);
     }
 }

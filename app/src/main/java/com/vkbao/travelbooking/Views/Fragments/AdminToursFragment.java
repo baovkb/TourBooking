@@ -2,7 +2,6 @@ package com.vkbao.travelbooking.Views.Fragments;
 
 import static com.vkbao.travelbooking.Helper.Helper.removeAccent;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -26,7 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.vkbao.travelbooking.Adapters.SearchItemAdapter;
-import com.vkbao.travelbooking.Helper.UserItemTouch;
+import com.vkbao.travelbooking.Helper.ItemTouchDelete;
 import com.vkbao.travelbooking.Models.Category;
 import com.vkbao.travelbooking.Models.Item;
 import com.vkbao.travelbooking.Models.Location;
@@ -206,11 +205,11 @@ public class AdminToursFragment extends Fragment {
             if (itemTouchHelper != null) {
                 itemTouchHelper.attachToRecyclerView(null);
             }
-            UserItemTouch userItemTouch = new UserItemTouch(context, adapter);
-            userItemTouch.setOnItemSwipeListener(position -> {
+            ItemTouchDelete itemTouchDelete = new ItemTouchDelete(context, adapter);
+            itemTouchDelete.setOnItemSwipeListener(position -> {
                 confirmDeleteDialog(itemList.get(position), position);
             });
-            itemTouchHelper = new ItemTouchHelper(userItemTouch);
+            itemTouchHelper = new ItemTouchHelper(itemTouchDelete);
             itemTouchHelper.attachToRecyclerView(binding.recyclerViewItem);
 
             binding.recyclerViewItem.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
@@ -247,7 +246,7 @@ public class AdminToursFragment extends Fragment {
     private void startAdminTourDetailFragment(Item item) {
         FragmentManager fragmentManager = getParentFragment().getParentFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("item", item);
+        bundle.putSerializable("item", item);
         AdminTourDetailFragment adminTourDetailFragment = new AdminTourDetailFragment();
         adminTourDetailFragment.setArguments(bundle);
 

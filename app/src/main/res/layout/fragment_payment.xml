@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-           <LinearLayout
+           <androidx.constraintlayout.widget.ConstraintLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginHorizontal="12dp"
@@ -25,16 +25,28 @@
                android:padding="6dp"
                android:background="@drawable/gray_bg">
 
+               <TextView
+                   android:id="@+id/textView11"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="24sp"
+                   android:textStyle="bold"
+                   android:textColor="@color/dark_blue"
+                   android:text="Payment"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
                <ImageView
                    android:id="@+id/backBtn"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-
                    android:src="@drawable/back_white"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toTopOf="parent" />
 
-           </LinearLayout>
+           </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerItemPayment"

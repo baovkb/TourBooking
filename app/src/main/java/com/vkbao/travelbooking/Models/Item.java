@@ -5,7 +5,9 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class Item implements Parcelable {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String item_id;
     private String category_id;
     private String location_id;
@@ -54,18 +56,6 @@ public class Item implements Parcelable {
         tourGuidePhone = in.readString();
         tourGuidePic = in.readString();
     }
-
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
-        @Override
-        public Item createFromParcel(Parcel in) {
-            return new Item(in);
-        }
-
-        @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
-        }
-    };
 
     public String getItem_id() {
         return item_id;
@@ -169,27 +159,5 @@ public class Item implements Parcelable {
 
     public void setTourGuidePic(String tourGuidePic) {
         this.tourGuidePic = tourGuidePic;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeString(item_id);
-        parcel.writeString(category_id);
-        parcel.writeString(location_id);
-        parcel.writeString(address);
-        parcel.writeString(banner);
-        parcel.writeString(dateTour);
-        parcel.writeString(description);
-        parcel.writeString(duration);
-        parcel.writeInt(price);
-        parcel.writeString(title);
-        parcel.writeString(tourGuideName);
-        parcel.writeString(tourGuidePhone);
-        parcel.writeString(tourGuidePic);
     }
 }

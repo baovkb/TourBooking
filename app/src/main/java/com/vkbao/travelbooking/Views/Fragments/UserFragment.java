@@ -1,5 +1,7 @@
 package com.vkbao.travelbooking.Views.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,7 @@ import com.vkbao.travelbooking.databinding.FragmentUserBinding;
 
 public class UserFragment extends Fragment {
     private FragmentUserBinding binding;
-    private int position;
+    private int chipNavID = -1;
 
     public UserFragment() {
     }
@@ -45,6 +48,7 @@ public class UserFragment extends Fragment {
     public void initChipNavigation() {
         binding.chipNavigation.setOnItemSelectedListener(i -> {
             FragmentManager fragmentManager = getChildFragmentManager();
+            chipNavID = i;
 
             if (i == R.id.home) {
                 fragmentManager
@@ -60,6 +64,7 @@ public class UserFragment extends Fragment {
             }
         });
 
-        binding.chipNavigation.setItemSelected(R.id.home, true);
+        if (chipNavID == -1) binding.chipNavigation.setItemSelected(R.id.home, true);
+        else binding.chipNavigation.setItemSelected(chipNavID, true);
     }
 }

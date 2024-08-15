@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment {
         FragmentManager fragmentManager = getParentFragment().getParentFragmentManager();
 
         Bundle bundle = new Bundle();
-        bundle.putParcelable("item", item);
+        bundle.putSerializable("item", item);
         TourDetailFragment tourDetailFragment = new TourDetailFragment();
         tourDetailFragment.setArguments(bundle);
 

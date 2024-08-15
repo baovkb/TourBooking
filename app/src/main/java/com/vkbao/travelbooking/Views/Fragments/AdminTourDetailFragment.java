@@ -92,7 +92,7 @@ public class AdminTourDetailFragment extends Fragment {
 
     private void initItem() {
         if ( getArguments() != null) {
-             item = getArguments().getParcelable("item");
+             item = (Item) getArguments().getSerializable("item");
         }
 
         if (item != null) {
@@ -169,7 +169,7 @@ public class AdminTourDetailFragment extends Fragment {
 
         binding.edit.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putParcelable("item", item);
+            bundle.putSerializable("item", item);
             AdminEditTourDetailFragment fragment = new AdminEditTourDetailFragment();
             fragment.setArguments(bundle);
 

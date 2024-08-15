@@ -98,7 +98,36 @@
                         android:text="@string/profile_my_profile" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_action_navigate_next" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/my_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:paddingVertical="4dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        app:tint="@color/dark_yellow"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ticket" />
+
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/profile_my_ticket" />
+
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_action_navigate_next" />

@@ -58,7 +58,7 @@ public class AccountRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                allAccount.setValue(new ArrayList<>());
             }
         });
         return allAccount;
