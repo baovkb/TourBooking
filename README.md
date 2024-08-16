@@ -75,7 +75,7 @@ You can try it at [here](app-release.apk)
 ![user](Screenshot/user_1.png)
 ![user](Screenshot/user_2.png)
 
-<h4> User </h4>
+<h4> Admin </h4>
 
 ![admin_1.png](Screenshot/admin_1.png)
 
