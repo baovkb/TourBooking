@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.vkbao.travelbooking.Models.Cart;
 import com.vkbao.travelbooking.Repositories.CartRepository;
@@ -26,7 +27,11 @@ public class CartViewModel extends AndroidViewModel {
         return cartRepository.createCart(cart);
     }
 
-    public CompletableFuture<Cart> getCartByID(String cartID) {
+    public CompletableFuture<Cart> getCartByIDFuture(String cartID) {
+        return cartRepository.getCartByIDFuture(cartID);
+    }
+
+    public LiveData<Cart> getCartByID(String cartID) {
         return cartRepository.getCartByID(cartID);
     }
 
@@ -34,7 +39,15 @@ public class CartViewModel extends AndroidViewModel {
         return cartRepository.addCartItem(cartID, cartItem);
     }
 
+    public CompletableFuture<Boolean> updateCartItem(String cartID, Cart.CartItem cartItem) {
+        return cartRepository.updateCartItem(cartID, cartItem);
+    }
+
     public CompletableFuture<Boolean> deleteCart(String cartID) {
         return cartRepository.deleteCart(cartID);
+    }
+
+    public CompletableFuture<Boolean> deleteCartItem(String cartID, String itemID) {
+        return cartRepository.deleteCartItem(cartID, itemID);
     }
 }

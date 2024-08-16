@@ -91,7 +91,7 @@ public class TourDetailFragment extends Fragment {
             String uid = accountViewModel.getUser().getUid();
             accountViewModel
                     .getAccountByUIDFuture(uid)
-                    .thenCompose(account -> cartViewModel.getCartByID(account.getCart_id()))
+                    .thenCompose(account -> cartViewModel.getCartByIDFuture(account.getCart_id()))
                     .thenCompose(cart -> {
                         String cartID = cart.getCart_id();
                         Cart.CartItem cartItem = new Cart.CartItem(item.getItem_id(), 1);

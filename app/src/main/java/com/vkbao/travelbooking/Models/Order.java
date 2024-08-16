@@ -27,13 +27,6 @@ public class Order implements Serializable {
         this.item = item;
     }
 
-    protected Order(Parcel in) {
-        order_id = in.readString();
-        account_id = in.readString();
-        timestamp = in.readString();
-        amount = in.readInt();
-    }
-
     public String getOrder_id() {
         return order_id;
     }

@@ -102,6 +102,7 @@ public class SignupFragment extends Fragment {
                 String password = binding.password.getText().toString().trim();
 
                 accountViewModel.signupUser(email, password, result -> {
+                    Log.d("test", result);
                     switch (result) {
                         case "SUCCESS":
                             FirebaseUser user = accountViewModel.getUser();
@@ -119,6 +120,11 @@ public class SignupFragment extends Fragment {
                                 return null;
                             });
 
+                            break;
+                        case "ERROR_EMAIL_ALREADY_IN_USE":
+                            binding.email.setBackgroundResource(R.drawable.red_bg);
+                            binding.emailNotify.setText(getString(R.string.email_already_use));
+                            binding.emailNotify.setVisibility(View.VISIBLE);
                             break;
                     }
                 });

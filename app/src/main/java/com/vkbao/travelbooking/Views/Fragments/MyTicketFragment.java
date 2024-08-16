@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,13 +15,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.vkbao.travelbooking.Adapters.MyTicketAdapter;
 import com.vkbao.travelbooking.Helper.ItemTouchDelete;
 import com.vkbao.travelbooking.Models.Ticket;
+import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.AccountViewModel;
 import com.vkbao.travelbooking.ViewModels.ItemViewModel;
 import com.vkbao.travelbooking.ViewModels.TicketViewModel;
+import com.vkbao.travelbooking.Views.Dialogs.ConfirmDialog;
+import com.vkbao.travelbooking.databinding.DialogConfirmBinding;
 import com.vkbao.travelbooking.databinding.FragmentMyTicketBinding;
 
 import java.util.ArrayList;
@@ -68,19 +73,19 @@ public class MyTicketFragment extends Fragment {
         ticketViewModel.getTicketsByUID(uid).observe(getViewLifecycleOwner(), tickets -> {
             List<MyTicketAdapter.MyTicket> myTicketList = new ArrayList<>();
 
+            List<CompletableFuture<Void>> futureList = new ArrayList<>();
+
+            tickets.forEach(ticket -> {
+                CompletableFuture<Void> handleItemFuture = itemViewModel.getItemByIDFuture(ticket.getItem_id())
+                        .thenAccept((item) -> {
+                            if (item != null)
+                                myTicketList.add(new MyTicketAdapter.MyTicket(item, ticket));
+                        });
+
+                futureList.add(handleItemFuture);
+            });
+
             CompletableFuture.runAsync(() -> {
-                List<CompletableFuture<Void>> futureList = new ArrayList<>();
-
-                tickets.forEach(ticket -> {
-                    CompletableFuture<Void> handleItemFuture = itemViewModel.getItemByIDFuture(ticket.getItem_id())
-                            .thenAccept((item) -> {
-                                if (item != null)
-                                    myTicketList.add(new MyTicketAdapter.MyTicket(item, ticket));
-                            });
-
-                    futureList.add(handleItemFuture);
-                });
-
                 CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0]))
                         .thenRun(() -> loadTicketList(myTicketList));
             });
@@ -98,8 +103,9 @@ public class MyTicketFragment extends Fragment {
             itemTouchDelete.setOnItemSwipeListener(position -> {
                 Ticket swipedTicket = myTicketList.get(position).getTicket();
 
-                Log.d(TAG, "swiped ticked id: " + swipedTicket.getTicket_id());
-                ticketViewModel.deleteTicketByID(swipedTicket.getTicket_id());
+                //delete ticket
+                deleteTicket(swipedTicket.getTicket_id());
+
             });
             itemTouchHelper = new ItemTouchHelper(itemTouchDelete);
             itemTouchHelper.attachToRecyclerView(binding.recyclerViewMyTicket);
@@ -113,5 +119,18 @@ public class MyTicketFragment extends Fragment {
         binding.backBtn.setOnClickListener(view -> {
             getParentFragmentManager().popBackStack();
         });
+    }
+
+    public void deleteTicket(String ticketID) {
+        ConfirmDialog dialog = new ConfirmDialog();
+        dialog.setMessage(getString(R.string.ticket_delete_message));
+        dialog.setPositiveBtn(() -> {
+            ticketViewModel.deleteTicketByID(ticketID)
+                    .thenAccept(success -> {
+                        if (success) Toast.makeText(requireContext(), getString(R.string.ticket_delete_success), Toast.LENGTH_SHORT).show();
+                        else Toast.makeText(requireContext(), getString(R.string.ticket_delete_error), Toast.LENGTH_SHORT).show();
+                    });
+        });
+        dialog.show(getChildFragmentManager(), null);
     }
 }

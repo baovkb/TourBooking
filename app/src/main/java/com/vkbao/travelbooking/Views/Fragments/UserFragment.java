@@ -55,7 +55,11 @@ public class UserFragment extends Fragment {
                         .beginTransaction()
                         .replace(binding.mainScreenFragment.getId(), new HomeFragment())
                         .commit();
-
+            } else if (i == R.id.cart) {
+                fragmentManager
+                        .beginTransaction()
+                        .replace(binding.mainScreenFragment.getId(), new CartFragment())
+                        .commit();
             } else if (i == R.id.profile) {
                 fragmentManager
                         .beginTransaction()
