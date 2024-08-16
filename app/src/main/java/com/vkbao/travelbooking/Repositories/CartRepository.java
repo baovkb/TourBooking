@@ -76,9 +76,12 @@ public class CartRepository {
                     String cart_id = snapshot.child("cart_id").getValue(String.class);
                     Map<String, Cart.CartItem> cartItemMap = snapshot.child("item").getValue(new GenericTypeIndicator<Map<String, Cart.CartItem>>() {});
 
-                    Map<String, Cart.CartItem> sortedCartItemMap = new TreeMap<>(cartItemMap);
-
-                    cartMutableLiveData.setValue(new Cart(cart_id, account_id, sortedCartItemMap));
+                    if (cartItemMap != null) {
+                        Map<String, Cart.CartItem> sortedCartItemMap = new TreeMap<>(cartItemMap);
+                        cartMutableLiveData.setValue(new Cart(cart_id, account_id, sortedCartItemMap));
+                    } else {
+                        cartMutableLiveData.setValue(new Cart(cart_id, account_id, null));
+                    }
                 }
             }
 
