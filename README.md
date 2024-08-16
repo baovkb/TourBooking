@@ -55,7 +55,7 @@ You can try it at [here](app-release.apk)
 - MVVM model
 - Firebase lib for java
 - Glide lib for load image
-- Multithreading using Completable
+- Multithreading using CompletableFuture
 - Retrofit to send request to server for delete user feature
 
 <h3> Expected features in the future </h3>
