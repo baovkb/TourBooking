@@ -100,6 +100,29 @@ public class AccountRepository {
         });
     }
 
+    public CompletableFuture<String> forgotPassword(String email) {
+        return CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<String> future = new CompletableFuture<>();
+
+            mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                if (task.isSuccessful())
+                    future.complete("SUCCESS");
+                else {
+                    Exception e = task.getException();
+
+                    if (e instanceof FirebaseAuthException) {
+                        Log.d(TAG, e.toString());
+                        future.complete(((FirebaseAuthException) e).getErrorCode());
+                    } else {
+                        future.complete(e.getMessage());
+                    }
+                }
+            });
+
+            return future;
+        }).thenCompose(success -> success);
+    }
+
     public CompletableFuture<Account> getAccountByUIDFuture(String uid) {
         return CompletableFuture.supplyAsync(() -> {
             CompletableFuture<Account> future = new CompletableFuture<>();

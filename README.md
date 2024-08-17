@@ -14,7 +14,7 @@ You can try it at [here](app-release.apk)
 
 **For User**
 
-- User Authentication: Login, Signup
+- User Authentication: Login, Signup, Forgot password
 - Tour:
 
     - Display tours as a list and banner
@@ -60,7 +60,7 @@ You can try it at [here](app-release.apk)
 
 <h3> Expected features in the future </h3>
 
-- Forget password, change profile
+- Change personal information
 - Integrate payment method
 - Permission authentication
 

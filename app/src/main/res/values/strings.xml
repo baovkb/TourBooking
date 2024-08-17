@@ -18,7 +18,7 @@
     <string name="bottom_menu_profile">Profile</string>
 
     <!--    Login-->
-    <string name="login_branch_name">Travel booking</string>
+    <string name="login_branch_name">Tour booking</string>
     <string name="login_slogan">Sign in and enjoy a perfect stay!</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
@@ -26,6 +26,10 @@
     <string name="login_login">Login</string>
     <string name="login_no_account">Don\'t have an account?</string>
     <string name="login_fail">Email or password is incorrect</string>
+
+<!--    Forgot password-->
+    <string name="forgot_password_btn">Reset password</string>
+    <string name="forgot_password_send_email_success">Reset password link has been sent</string>
 
     <!--    Sign up-->
     <string name="signup_signup">Sign up</string>
@@ -88,6 +92,8 @@
     <string name="ticket_delete_success">Delete ticket successful</string>
     <string name="ticket_delete_error">Something went wrong!</string>
 
-<!--    Cart-->
+    <!--    Cart-->
     <string name="cart_delete_item_success">Delete item successful</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

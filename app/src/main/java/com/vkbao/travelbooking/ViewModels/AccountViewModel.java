@@ -69,4 +69,8 @@ public class AccountViewModel extends AndroidViewModel {
     public FirebaseUser getUser() {
         return accountRepository.getUser();
     }
+
+    public CompletableFuture<String> forgotPassword(String email) {
+        return accountRepository.forgotPassword(email);
+    }
 }

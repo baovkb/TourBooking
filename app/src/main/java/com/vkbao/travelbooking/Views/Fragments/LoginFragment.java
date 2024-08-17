@@ -39,7 +39,9 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         initLogin();
+        initForgotPasswordBtn();
     }
 
     public void initLogin() {
@@ -86,5 +88,15 @@ public class LoginFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public void initForgotPasswordBtn() {
+        binding.forgotPassword.setOnClickListener(view -> {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new ForgotPasswordFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 }
