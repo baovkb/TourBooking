@@ -52,7 +52,7 @@ You can try it at [here](app-release.apk)
 
 <h3> Used tech stack </h3>
 
-- MVVM model
+- MVVM architecture
 - Firebase lib for java
 - Glide lib for load image
 - Multithreading using CompletableFuture
