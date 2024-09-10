@@ -1,6 +1,8 @@
 package com.vkbao.travelbooking.Models;
 
-public class CreateOrderResponse {
+import java.io.Serializable;
+
+public class CreateOrderResponse implements Serializable {
     int returncode;
     String returnmessage;
     String orderurl;

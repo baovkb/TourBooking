@@ -142,17 +142,12 @@ public class PaymentFragment extends Fragment {
                             invoiceViewModel.zalopay_AddOrder(invoice).thenAccept(data -> {
                                 if (data != null) {
                                     if (data.getReturncode() == 1) {
-                                        payOrderZaloPay(data.getZptranstoken());
+                                        payOrderZaloPay(data.getZptranstoken(), invoice);
                                     }
                                 } else {
                                     Log.d(TAG, "data is null");
                                 }
                             });
-
-                            //simulate paid
-//                            Invoice paidInvoice = invoice;
-//                            paidInvoice.setPayment_status(Invoice.PaymentStatus.Paid.name());
-//                            invoiceViewModel.createInvoice(paidInvoice);
                         });
             }
         });
@@ -182,7 +177,7 @@ public class PaymentFragment extends Fragment {
 
     }
 
-    private void payOrderZaloPay(String token) {
+    private void payOrderZaloPay(String token, Invoice invoice) {
         ZaloPaySDK.getInstance().payOrder(
                 getActivity(),
                 token,
@@ -192,6 +187,10 @@ public class PaymentFragment extends Fragment {
                     public void onPaymentSucceeded(String s, String s1, String s2) {
                         Toast.makeText(getContext(), "payment success", Toast.LENGTH_SHORT).show();
                         Log.d("payment", "success");
+
+                        Invoice paidInvoice = invoice;
+                        paidInvoice.setPayment_status(Invoice.PaymentStatus.Paid.name());
+                        invoiceViewModel.createInvoice(paidInvoice);
                     }
 
                     @Override

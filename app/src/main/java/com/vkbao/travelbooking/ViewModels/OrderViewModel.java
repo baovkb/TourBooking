@@ -5,8 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.vkbao.travelbooking.Models.CreateOrderResponse;
-import com.vkbao.travelbooking.Models.Invoice;
 import com.vkbao.travelbooking.Models.Order;
 import com.vkbao.travelbooking.Repositories.OrderRepository;
 

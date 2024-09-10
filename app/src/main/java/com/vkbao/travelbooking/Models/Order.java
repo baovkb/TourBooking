@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class Order implements Serializable {
+public class Order implements Serializable, Parcelable {
     private String order_id;
     private String account_id;
     private String timestamp;
@@ -26,6 +26,25 @@ public class Order implements Serializable {
         this.amount = amount;
         this.item = item;
     }
+
+    protected Order(Parcel in) {
+        order_id = in.readString();
+        account_id = in.readString();
+        timestamp = in.readString();
+        amount = in.readInt();
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 
     public String getOrder_id() {
         return order_id;
@@ -65,6 +84,19 @@ public class Order implements Serializable {
 
     public void setItem(Map<String, OrderItem> item) {
         this.item = item;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(order_id);
+        parcel.writeString(account_id);
+        parcel.writeString(timestamp);
+        parcel.writeInt(amount);
     }
 
     public static class OrderItem {
@@ -113,4 +145,3 @@ public class Order implements Serializable {
         }
     }
 }
-
