@@ -18,6 +18,9 @@ import com.vkbao.travelbooking.Views.Fragments.LoginFragment;
 import com.vkbao.travelbooking.Views.Fragments.UserFragment;
 import com.vkbao.travelbooking.databinding.ActivityMainBinding;
 
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPaySDK;
+
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private AccountViewModel accountViewModel;
@@ -31,6 +34,7 @@ public class MainActivity extends BaseActivity {
         setContentView(view);
 
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+        ZaloPaySDK.init(553, Environment.SANDBOX);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 

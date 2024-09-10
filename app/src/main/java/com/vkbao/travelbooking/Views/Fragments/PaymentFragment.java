@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -25,13 +24,15 @@ import com.vkbao.travelbooking.ViewModels.InvoiceViewModel;
 import com.vkbao.travelbooking.ViewModels.ItemViewModel;
 import com.vkbao.travelbooking.ViewModels.TicketViewModel;
 import com.vkbao.travelbooking.databinding.FragmentPaymentBinding;
-import com.vkbao.travelbooking.databinding.PaymentItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
+
+import vn.zalopay.sdk.ZaloPayError;
+import vn.zalopay.sdk.ZaloPaySDK;
+import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class PaymentFragment extends Fragment {
     private FragmentPaymentBinding binding;
@@ -138,12 +139,20 @@ public class PaymentFragment extends Fragment {
                                 }
                             });
 
-                            //simulate paid
-                            Invoice paidInvoice = invoice;
-                            paidInvoice.setPayment_status(Invoice.PaymentStatus.Paid.name());
-                            invoiceViewModel.createInvoice(paidInvoice);
+                            invoiceViewModel.zalopay_AddOrder(invoice).thenAccept(data -> {
+                                if (data != null) {
+                                    if (data.getReturncode() == 1) {
+                                        payOrderZaloPay(data.getZptranstoken());
+                                    }
+                                } else {
+                                    Log.d(TAG, "data is null");
+                                }
+                            });
 
-                            Log.d(TAG, "create invoice: " + success);
+                            //simulate paid
+//                            Invoice paidInvoice = invoice;
+//                            paidInvoice.setPayment_status(Invoice.PaymentStatus.Paid.name());
+//                            invoiceViewModel.createInvoice(paidInvoice);
                         });
             }
         });
@@ -171,5 +180,32 @@ public class PaymentFragment extends Fragment {
                     .commit();
         });
 
+    }
+
+    private void payOrderZaloPay(String token) {
+        ZaloPaySDK.getInstance().payOrder(
+                getActivity(),
+                token,
+                "demozpdk://app",
+                new PayOrderListener() {
+                    @Override
+                    public void onPaymentSucceeded(String s, String s1, String s2) {
+                        Toast.makeText(getContext(), "payment success", Toast.LENGTH_SHORT).show();
+                        Log.d("payment", "success");
+                    }
+
+                    @Override
+                    public void onPaymentCanceled(String s, String s1) {
+                        Toast.makeText(getContext(), "payment cancel", Toast.LENGTH_SHORT).show();
+                        Log.d("payment", "cancel");
+                    }
+
+                    @Override
+                    public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
+                        Toast.makeText(getContext(), "payment error", Toast.LENGTH_SHORT).show();
+                        Log.d("payment", "error");
+                    }
+                }
+        );
     }
 }

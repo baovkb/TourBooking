@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.vkbao.travelbooking.Models.CreateOrderResponse;
 import com.vkbao.travelbooking.Models.Invoice;
 import com.vkbao.travelbooking.Repositories.InvoiceRepository;
 
@@ -29,5 +30,9 @@ public class InvoiceViewModel extends AndroidViewModel {
 
     public LiveData<Boolean> waitingForPayment(String invoiceID) {
         return invoiceRepository.waitingForPayment(invoiceID);
+    }
+
+    public CompletableFuture<CreateOrderResponse> zalopay_AddOrder(Invoice invoice) {
+        return invoiceRepository.zalopay_AddOrder(invoice);
     }
 }
