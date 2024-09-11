@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
         setContentView(view);
 
         accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
-        ZaloPaySDK.init(553, Environment.SANDBOX);
+        ZaloPaySDK.init(554, Environment.SANDBOX);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -185,8 +187,10 @@ public class PaymentFragment extends Fragment {
                 new PayOrderListener() {
                     @Override
                     public void onPaymentSucceeded(String s, String s1, String s2) {
-                        Toast.makeText(getContext(), "payment success", Toast.LENGTH_SHORT).show();
-                        Log.d("payment", "success");
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            Toast.makeText(getContext(), "payment success", Toast.LENGTH_SHORT).show();
+                            Log.d("payment", "success");
+                        });
 
                         Invoice paidInvoice = invoice;
                         paidInvoice.setPayment_status(Invoice.PaymentStatus.Paid.name());
@@ -195,14 +199,18 @@ public class PaymentFragment extends Fragment {
 
                     @Override
                     public void onPaymentCanceled(String s, String s1) {
-                        Toast.makeText(getContext(), "payment cancel", Toast.LENGTH_SHORT).show();
-                        Log.d("payment", "cancel");
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            Toast.makeText(getContext(), "payment success", Toast.LENGTH_SHORT).show();
+                            Log.d("payment", "cancel");
+                        });
                     }
 
                     @Override
                     public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
-                        Toast.makeText(getContext(), "payment error", Toast.LENGTH_SHORT).show();
-                        Log.d("payment", "error");
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            Toast.makeText(getContext(), "payment success", Toast.LENGTH_SHORT).show();
+                            Log.d("payment", "error");
+                        });
                     }
                 }
         );
