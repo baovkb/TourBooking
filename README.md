@@ -28,7 +28,8 @@ You can try it at [here](app-release.apk)
     - Delete tours by swipe to left
     - Book tours of your choice*
 
-*: Payment feature is simulation
+- Payment
+  - Payment with Zalopay Sandbox
 
 - Ticket:
     
@@ -61,7 +62,6 @@ You can try it at [here](app-release.apk)
 <h3> Expected features in the future </h3>
 
 - Change personal information
-- Integrate payment method
 - Permission authentication
 
 <h3> Some screenshot </h3>
