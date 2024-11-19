@@ -8,7 +8,7 @@ This app is designed to offer a user-friendly platform that allows users to book
 
 Compatibility: Android 7 and above
 
-You can try it at [here](app-release.apk)
+You can try it [here](app-release.apk)
 
 <h3> Features </h3>
 
