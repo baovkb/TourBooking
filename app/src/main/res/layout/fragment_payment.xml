@@ -160,6 +160,7 @@
                             app:layout_constraintVertical_chainStyle="packed" />
 
                         <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:enabled="false"
                             android:id="@+id/radioButtonMomo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
