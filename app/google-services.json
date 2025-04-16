@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "332984210848",
+    "firebase_url": "https://travelapp-225b5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "travelapp-225b5",
+    "storage_bucket": "travelapp-225b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332984210848:android:0d6fb6078e29bd627240c5",
+        "android_client_info": {
+          "package_name": "com.vkbao.travelapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332984210848-0gna3ncrelaopf35hpnl85680kfrrgr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADZEmPY3dV1eW15glWNIAE9yEaStZBcsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332984210848-0gna3ncrelaopf35hpnl85680kfrrgr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332984210848:android:0adef508ff0664f17240c5",
+        "android_client_info": {
+          "package_name": "com.vkbao.travelbooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332984210848-0gna3ncrelaopf35hpnl85680kfrrgr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADZEmPY3dV1eW15glWNIAE9yEaStZBcsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332984210848-0gna3ncrelaopf35hpnl85680kfrrgr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

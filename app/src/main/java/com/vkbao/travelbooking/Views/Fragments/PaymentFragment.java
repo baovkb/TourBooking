@@ -122,8 +122,10 @@ public class PaymentFragment extends Fragment {
             binding.radioButtonZalo.setChecked(!binding.radioButtonMomo.isChecked());
         });
 
+        binding.paymentBtn.setEnabled(true);
+        binding.paymentBtn.setBackgroundResource(R.drawable.blue_bg);
         binding.paymentBtn.setOnClickListener(view -> {
-            if (order != null) {
+            if (binding.radioButtonZalo.isChecked() && order != null) {
                 String invoice_id = invoiceViewModel.createID();
                 Invoice invoice = new Invoice(invoice_id,
                         order.getOrder_id(),
@@ -151,6 +153,11 @@ public class PaymentFragment extends Fragment {
                                 }
                             });
                         });
+
+                binding.paymentBtn.setEnabled(false);
+                binding.paymentBtn.setBackgroundResource(R.drawable.gray_bg);
+            } else {
+                Toast.makeText(getContext(), "You have not chosen payment method", Toast.LENGTH_SHORT).show();
             }
         });
     }

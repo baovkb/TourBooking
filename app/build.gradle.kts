@@ -1,7 +1,13 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
 }
+
+val apiFile = project.rootProject.file("api.properties")
+val properties = Properties()
+properties.load(apiFile.inputStream())
 
 android {
     namespace = "com.vkbao.travelbooking"
@@ -13,6 +19,12 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField(
+            type = "String",
+            name = "API_KEY",
+            value = properties.getProperty("API_KEY") ?: ""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,7 +45,10 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
+
+
 }
 
 dependencies {
