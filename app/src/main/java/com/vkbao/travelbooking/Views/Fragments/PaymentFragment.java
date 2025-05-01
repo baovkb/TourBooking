@@ -68,6 +68,7 @@ public class PaymentFragment extends Fragment {
         ticketViewModel = new ViewModelProvider(requireActivity()).get(TicketViewModel.class);
 
         initOrder();
+        initVoucher();
         initEvent();
     }
 
@@ -109,6 +110,11 @@ public class PaymentFragment extends Fragment {
         }
     }
 
+    // fetch vouchers and when user click to voucher area, navigate to voucher selection screen
+    public void initVoucher() {
+
+    }
+
     public void initEvent() {
         binding.backBtn.setOnClickListener(view -> {
             getParentFragmentManager().popBackStack();
@@ -127,11 +133,15 @@ public class PaymentFragment extends Fragment {
         binding.paymentBtn.setOnClickListener(view -> {
             if (binding.radioButtonZalo.isChecked() && order != null) {
                 String invoice_id = invoiceViewModel.createID();
-                Invoice invoice = new Invoice(invoice_id,
+
+                //need to update due to adding voucher reference
+                Invoice invoice = new Invoice(
+                        invoice_id,
                         order.getOrder_id(),
                         Invoice.PaymentStatus.Pending.name(),
                         Helper.getCurrentTimeString(),
-                        order.getAmount());
+                        order.getAmount()
+                );
                 invoiceViewModel.createInvoice(invoice)
                         .thenAccept(success -> {
                             //handle payment, if success -> update invoice
@@ -143,6 +153,7 @@ public class PaymentFragment extends Fragment {
                                 }
                             });
 
+                            // will dispose this later, just simulate payment process
                             invoiceViewModel.zalopay_AddOrder(invoice).thenAccept(data -> {
                                 if (data != null) {
                                     if (data.getReturncode() == 1) {
