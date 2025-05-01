@@ -2,6 +2,7 @@ package com.vkbao.travelbooking.Models;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Invoice {
     private String invoice_id;
@@ -10,7 +11,25 @@ public class Invoice {
     private String timestamp;
     private int subtotal;
     private int total;
-    private List<String> voucher_ids;
+    private Map<String, String> voucher_ids;
+
+    public Invoice(
+            String invoice_id,
+            String order_id,
+            String payment_status,
+            String timestamp,
+            int subtotal,
+            int total,
+            Map<String, String> voucher_ids
+    ) {
+        this.invoice_id = invoice_id;
+        this.order_id = order_id;
+        this.payment_status = payment_status;
+        this.timestamp = timestamp;
+        this.subtotal = subtotal;
+        this.total = total;
+        this.voucher_ids = voucher_ids;
+    }
 
     public int getSubtotal() {
         return subtotal;
@@ -28,31 +47,14 @@ public class Invoice {
         this.total = total;
     }
 
-    public List<String> getVoucher_ids() {
+    public Map<String, String> getVoucher_ids() {
         return voucher_ids;
     }
 
-    public void setVoucher_ids(List<String> voucher_ids) {
+    public void setVoucher_ids(Map<String, String> voucher_ids) {
         this.voucher_ids = voucher_ids;
     }
 
-    public Invoice(
-            String invoice_id,
-            String order_id,
-            String payment_status,
-            String timestamp,
-            int subtotal,
-            int total,
-            List<String> voucher_ids
-    ) {
-        this.invoice_id = invoice_id;
-        this.order_id = order_id;
-        this.payment_status = payment_status;
-        this.timestamp = timestamp;
-        this.subtotal = subtotal;
-        this.total = total;
-        this.voucher_ids = voucher_ids;
-    }
 
     public enum PaymentStatus {
         Pending,
@@ -61,16 +63,6 @@ public class Invoice {
     }
 
     public Invoice() {
-    }
-
-    public Invoice(Invoice another) {
-        this.invoice_id = another.invoice_id;
-        this.order_id = another.order_id;
-        this.payment_status = another.payment_status;
-        this.timestamp = another.timestamp;
-        this.subtotal = another.subtotal;
-        this.total = another.total;
-        Collections.copy(another.voucher_ids, this.voucher_ids);
     }
 
     public String getInvoice_id() {
