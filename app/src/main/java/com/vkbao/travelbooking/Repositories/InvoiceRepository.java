@@ -79,6 +79,7 @@ public class InvoiceRepository {
         return isPaid;
     }
 
+    /*
     public CompletableFuture<CreateOrderResponse> zalopay_AddOrder(Invoice invoice) {
         return CompletableFuture.supplyAsync(() -> {
             CompletableFuture<CreateOrderResponse> future = new CompletableFuture<>();
@@ -137,4 +138,5 @@ public class InvoiceRepository {
             return future;
         }).thenCompose(data -> data);
     }
+     */
 }

@@ -21,16 +21,20 @@ import com.vkbao.travelbooking.Helper.Helper;
 import com.vkbao.travelbooking.Models.Invoice;
 import com.vkbao.travelbooking.Models.Order;
 import com.vkbao.travelbooking.Models.Ticket;
+import com.vkbao.travelbooking.Models.Voucher;
 import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.InvoiceViewModel;
 import com.vkbao.travelbooking.ViewModels.ItemViewModel;
 import com.vkbao.travelbooking.ViewModels.TicketViewModel;
+import com.vkbao.travelbooking.ViewModels.VoucherViewModel;
 import com.vkbao.travelbooking.databinding.FragmentPaymentBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
@@ -42,6 +46,9 @@ public class PaymentFragment extends Fragment {
     private ItemViewModel itemViewModel;
     private InvoiceViewModel invoiceViewModel;
     private TicketViewModel ticketViewModel;
+    private VoucherViewModel voucherViewModel;
+    private Boolean shouldClearVoucher = true;
+    private List<Voucher> vouchersTmp = new ArrayList<>();
 
     private final String TAG = "PaymentFragment";
 
@@ -50,6 +57,21 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getParentFragmentManager().setFragmentResultListener("selected_vouchers", this, (key, bundle) -> {
+            shouldClearVoucher = bundle.getBoolean("should_clear_voucher", true);
+            Log.d(TAG, "receive key from voucher fragment=" + shouldClearVoucher);
+            if (shouldClearVoucher) {
+                vouchersTmp = voucherViewModel.getSelectedVoucher();
+                voucherViewModel.setSelectedVoucher(new ArrayList<>());
+            } else {
+                voucherViewModel.setSelectedVoucher(vouchersTmp);
+            }
+
+            initOrder();
+            initVoucher();
+            initEvent();
+        });
     }
 
     @Override
@@ -66,6 +88,13 @@ public class PaymentFragment extends Fragment {
         itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         invoiceViewModel = new ViewModelProvider(requireActivity()).get(InvoiceViewModel.class);
         ticketViewModel = new ViewModelProvider(requireActivity()).get(TicketViewModel.class);
+        voucherViewModel = new ViewModelProvider(requireActivity()).get(VoucherViewModel.class);
+
+        Log.d("PaymentFragment","shouldClearVoucher=" + shouldClearVoucher);
+        if (shouldClearVoucher) {
+            vouchersTmp = voucherViewModel.getSelectedVoucher();
+            voucherViewModel.setSelectedVoucher(new ArrayList<>());
+        }
 
         initOrder();
         initVoucher();
@@ -105,14 +134,27 @@ public class PaymentFragment extends Fragment {
                         });
             });
 
-            binding.tourSubtotal.setText(String.valueOf(order.getAmount()));
-            binding.totalPayment.setText(String.valueOf(order.getAmount()));
+            int subTotal = order.getAmount();
+            int discount = calcDiscount(subTotal);
+            binding.tourSubtotal.setText(String.valueOf(subTotal));
+            binding.discountValue.setText(String.valueOf(discount));
+
+            int total = subTotal - discount;
+            if (total < 0) total = 0;
+            binding.totalPayment.setText(String.valueOf(total));
         }
     }
 
-    // fetch vouchers and when user click to voucher area, navigate to voucher selection screen
     public void initVoucher() {
+        binding.voucherContainer.setOnClickListener(view -> {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main, new VoucherSelectionFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
 
+        binding.voucherContent.setText(String.format(requireContext().getString(R.string.voucher_applied), String.valueOf(voucherViewModel.getSelectedVoucher().size())));
     }
 
     public void initEvent() {
@@ -134,13 +176,26 @@ public class PaymentFragment extends Fragment {
             if (binding.radioButtonZalo.isChecked() && order != null) {
                 String invoice_id = invoiceViewModel.createID();
 
+                //check applied voucher
+                int subTotal = order.getAmount();
+                int discount = calcDiscount(subTotal);
+                int total = subTotal - discount;
+                if (total < 0) total = 0;
+
+                Map<String, String> voucherMap = new HashMap<>();
+                for(Voucher voucher : voucherViewModel.getSelectedVoucher()) {
+                    voucherMap.put(voucher.getVoucher_id(), voucher.getVoucher_id());
+                }
+
                 //need to update due to adding voucher reference
                 Invoice invoice = new Invoice(
                         invoice_id,
                         order.getOrder_id(),
                         Invoice.PaymentStatus.Pending.name(),
                         Helper.getCurrentTimeString(),
-                        order.getAmount()
+                        subTotal,
+                        total,
+                        voucherMap
                 );
                 invoiceViewModel.createInvoice(invoice)
                         .thenAccept(success -> {
@@ -153,16 +208,12 @@ public class PaymentFragment extends Fragment {
                                 }
                             });
 
-                            // will dispose this later, just simulate payment process
-                            invoiceViewModel.zalopay_AddOrder(invoice).thenAccept(data -> {
-                                if (data != null) {
-                                    if (data.getReturncode() == 1) {
-                                        payOrderZaloPay(data.getZptranstoken(), invoice);
-                                    }
-                                } else {
-                                    Log.d(TAG, "data is null");
-                                }
-                            });
+                            //simulate paid
+                            Invoice paidInvoice = invoice;
+                            paidInvoice.setPayment_status(Invoice.PaymentStatus.Paid.name());
+                            invoiceViewModel.createInvoice(paidInvoice);
+
+                            Log.d(TAG, "create invoice: " + success);
                         });
 
                 binding.paymentBtn.setEnabled(false);
@@ -171,6 +222,20 @@ public class PaymentFragment extends Fragment {
                 Toast.makeText(getContext(), "You have not chosen payment method", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private int calcDiscount(int subTotal) {
+        int discount = 0;
+        for(Voucher voucher : voucherViewModel.getSelectedVoucher()) {
+            if (voucher.getVoucher_type().equals("fixed")) {
+                discount += voucher.getVoucher_value();
+            } else if (voucher.getVoucher_type().equals("percent")) {
+                Double tmp = subTotal * ((double) voucher.getVoucher_value() / 100);
+                discount = (int)Math.round(tmp);
+            }
+        }
+
+        return discount;
     }
 
     public void createTicketAndNavigate() {
@@ -197,6 +262,7 @@ public class PaymentFragment extends Fragment {
 
     }
 
+    /*
     private void payOrderZaloPay(String token, Invoice invoice) {
         ZaloPaySDK.getInstance().payOrder(
                 getActivity(),
@@ -233,4 +299,6 @@ public class PaymentFragment extends Fragment {
                 }
         );
     }
+
+     */
 }

@@ -1,19 +1,23 @@
 package com.vkbao.travelbooking.Models;
 
-public class Vouchers {
+import androidx.annotation.Nullable;
+
+import java.io.Serializable;
+
+public class Voucher implements Serializable {
     private String voucher_id;
     private String create_at;
     private String start_at;
     private String end_at;
     private String description;
-    private String is_active;
+    private Boolean is_active;
     private String voucher_type;
     private int voucher_value;
     private int quantity;
 
-    public Vouchers() {}
+    public Voucher() {}
 
-    public Vouchers(String voucher_id, String create_at, String start_at, String end_at, String description, String is_active, String voucher_type, int voucher_value, int quantity) {
+    public Voucher(String voucher_id, String create_at, String start_at, String end_at, String description, Boolean is_active, String voucher_type, int voucher_value, int quantity) {
         this.voucher_id = voucher_id;
         this.create_at = create_at;
         this.start_at = start_at;
@@ -23,6 +27,16 @@ public class Vouchers {
         this.voucher_type = voucher_type;
         this.voucher_value = voucher_value;
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == this) return true;
+
+        if (!(obj instanceof Voucher)) return false;
+
+        Voucher v = (Voucher) obj;
+        return v.getVoucher_id().equals(this.voucher_id);
     }
 
     public int getQuantity() {
@@ -49,11 +63,11 @@ public class Vouchers {
         this.voucher_type = voucher_type;
     }
 
-    public String getIs_active() {
+    public Boolean getIs_active() {
         return is_active;
     }
 
-    public void setIs_active(String is_active) {
+    public void setIs_active(Boolean is_active) {
         this.is_active = is_active;
     }
 

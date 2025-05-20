@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(files("D:\\Learning\\Android\\TravelBooking\\zpdk-release\\zpdk-release-v3.1.aar"))
+    implementation(libs.lifecycle.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
