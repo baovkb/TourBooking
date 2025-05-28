@@ -25,5 +25,10 @@
         android:title="@string/admin_bottom_menu_profile"
         app:cnb_iconColor="@color/white"
         app:cnb_backgroundColor="@color/blue" />
-
+    <item
+        android:id="@+id/adminVoucherFragment"
+        android:icon="@drawable/ic_voucher"
+        android:title="Vouchers"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/blue" />
 </menu>
