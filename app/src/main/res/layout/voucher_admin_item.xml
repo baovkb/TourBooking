@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -19,84 +19,81 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/statusChip"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/statusChip"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Summer Sale 50%" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/statusChip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            tools:text="Active" />
 
         <TextView
             android:id="@+id/voucherCodeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/design_default_color_primary"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/voucherNameText"
-            app:layout_constraintStart_toStartOf="parent"/>
+            tools:text="SUMMER50" />
 
         <TextView
             android:id="@+id/discountText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@android:color/holo_green_dark"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/voucherCodeText"
-            app:layout_constraintStart_toStartOf="parent"/>
+            tools:text="50% off" />
 
         <TextView
             android:id="@+id/validityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/discountText"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/quantityText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/validityText"
-            app:layout_constraintStart_toStartOf="parent"/>
+            tools:text="Valid until: 31/12/2024" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/quantityText"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/voucherCodeText">
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/editButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
-                app:icon="@drawable/ic_edit"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Edit voucher"
+                android:padding="8dp"
+                android:src="@drawable/ic_edit" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/assignButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Assign"
-                app:icon="@drawable/ic_assign"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Assign voucher"
+                android:padding="8dp"
+                android:src="@drawable/ic_assign" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/deleteButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete"
-                app:icon="@drawable/ic_delete"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Delete voucher"
+                android:padding="8dp"
+                android:src="@drawable/ic_delete" />
 
         </LinearLayout>
 
