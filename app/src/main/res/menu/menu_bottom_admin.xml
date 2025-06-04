@@ -14,9 +14,9 @@
         app:cnb_iconColor="@color/white"
         app:cnb_backgroundColor="@color/blue" />
     <item
-        android:id="@+id/locations"
-        android:icon="@drawable/location"
-        android:title="@string/admin_bottom_menu_location"
+        android:id="@+id/voucher"
+        android:icon="@drawable/voucher"
+        android:title="@string/admin_bottom_menu_voucher"
         app:cnb_iconColor="@color/white"
         app:cnb_backgroundColor="@color/blue" />
     <item

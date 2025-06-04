@@ -2,6 +2,8 @@ package com.vkbao.travelbooking.Models;
 
 import androidx.annotation.Nullable;
 
+import com.vkbao.travelbooking.R;
+
 import java.io.Serializable;
 
 public class Voucher implements Serializable {
@@ -14,10 +16,22 @@ public class Voucher implements Serializable {
     private String voucher_type;
     private int voucher_value;
     private int quantity;
+    private String name;
 
     public Voucher() {}
 
-    public Voucher(String voucher_id, String create_at, String start_at, String end_at, String description, Boolean is_active, String voucher_type, int voucher_value, int quantity) {
+    public Voucher(
+            String voucher_id,
+            String create_at,
+            String start_at,
+            String end_at,
+            String description,
+            Boolean is_active,
+            String voucher_type,
+            int voucher_value,
+            int quantity,
+            String name
+    ) {
         this.voucher_id = voucher_id;
         this.create_at = create_at;
         this.start_at = start_at;
@@ -27,6 +41,7 @@ public class Voucher implements Serializable {
         this.voucher_type = voucher_type;
         this.voucher_value = voucher_value;
         this.quantity = quantity;
+        this.name = name;
     }
 
     @Override
@@ -37,6 +52,14 @@ public class Voucher implements Serializable {
 
         Voucher v = (Voucher) obj;
         return v.getVoucher_id().equals(this.voucher_id);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getQuantity() {

@@ -71,7 +71,7 @@ public class VoucherSelectionFragment extends Fragment {
                 Log.d(TAG, "selected vouchers have been changed, num = " + v.size());
                 selectedVouchers = v;
             });
-            binding.recyclerViewVoucher.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+            binding.recyclerViewVoucher.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.VERTICAL, false));
             binding.recyclerViewVoucher.setAdapter(adapter);
         });
     }

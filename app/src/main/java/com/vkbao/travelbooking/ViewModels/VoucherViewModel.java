@@ -35,6 +35,22 @@ public class VoucherViewModel extends AndroidViewModel {
         return voucherRepository.getAllVouchers();
     }
 
+    public void getVoucherByName(String name) {
+        voucherRepository.getVoucherByName(name);
+    }
+
+    public void getActiveVouchersByName(String name) {
+        voucherRepository.getActiveFilterVouchers(name);
+    }
+
+    public void getExpiredVouchersByName(String name) {
+        voucherRepository.getExpiredFilterVouchers(name);
+    }
+
+    public LiveData<List<Voucher>> getFilterVouchers() {
+        return voucherRepository.getFilterVouchers();
+    }
+
     public LiveData<List<Voucher>> getAvailableVouchers() {
         return voucherRepository.getAvailableVouchers();
     }
@@ -45,5 +61,9 @@ public class VoucherViewModel extends AndroidViewModel {
 
     public void setSelectedVoucher(List<Voucher> selectedVoucher) {
         this.selectedVoucher = selectedVoucher;
+    }
+
+    public CompletableFuture<Boolean> deleteVoucher(String voucherId) {
+        return voucherRepository.deleteVoucher(voucherId);
     }
 }

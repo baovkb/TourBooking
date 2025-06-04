@@ -58,6 +58,7 @@
     <string name="admin_bottom_menu_user">Users</string>
     <string name="admin_bottom_menu_location">Location</string>
     <string name="admin_bottom_menu_profile">Profile</string>
+    <string name="admin_bottom_menu_voucher">Voucher</string>
 
     <string name="admin_tour_location">Location</string>
     <string name="admin_tour_category">Category</string>
@@ -103,4 +104,7 @@
     <string name="voucher_banner_fixed">%s VND</string>
     <string name="submit">Submit</string>
     <string name="voucher_applied">%s voucher(s) have been applied</string>
+
+<!--    common-->
+    <string name="save">Save</string>
 </resources>
