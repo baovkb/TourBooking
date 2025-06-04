@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/adminVoucherFragment">
+
+    <fragment
+        android:id="@+id/adminVoucherFragment"
+        android:name="com.vkbao.travelbooking.ui.admin.AdminVoucherFragment"
+        android:label="Voucher Management">
+        <action
+            android:id="@+id/action_adminVoucherFragment_to_adminAddVoucherFragment"
+            app:destination="@id/adminAddVoucherFragment" />
+        <action
+            android:id="@+id/action_adminVoucherFragment_to_adminEditVoucherFragment"
+            app:destination="@id/adminEditVoucherFragment" />
+        <action
+            android:id="@+id/action_adminVoucherFragment_to_adminAssignVoucherFragment"
+            app:destination="@id/adminAssignVoucherFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminAddVoucherFragment"
+        android:name="com.vkbao.travelbooking.ui.admin.AdminAddVoucherFragment"
+        android:label="Add Voucher" />
+
+    <fragment
+        android:id="@+id/adminEditVoucherFragment"
+        android:name="com.vkbao.travelbooking.ui.admin.AdminEditVoucherFragment"
+        android:label="Edit Voucher">
+        <argument
+            android:name="voucherId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminAssignVoucherFragment"
+        android:name="com.vkbao.travelbooking.ui.admin.AdminAssignVoucherFragment"
+        android:label="Assign Voucher">
+        <argument
+            android:name="voucherId"
+            app:argType="string" />
+    </fragment>
+
+</navigation> 

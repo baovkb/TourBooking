@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="blue">#3F95EC</color>
-    <color name="red">#ff0000</color>
-    <color name="light_red">#ee5959</color>
-    <color name="dark_blue">#253F66</color>
-    <color name="light_gray">#efefef</color>
-    <color name="gray">#808080</color>
-    <color name="yellow">#ffc106</color>
-    <color name="dark_yellow">#E6AE03</color>
-    <color name="transparent">#00ffffff</color>
+    <!-- Base colors -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF4081</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <!-- Status colors -->
+    <color name="chip_active">#4CAF50</color>
+    <color name="chip_inactive">#F44336</color>
+    <color name="chip_expired">#9E9E9E</color>
+
+    <!-- Background colors -->
+    <color name="background_light">#FFFFFF</color>
+    <color name="background_dark">#121212</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_error">#F44336</color>
+    <color name="text_success">#4CAF50</color>
+
+    <!-- Material Design colors -->
+    <color name="material_blue">#2196F3</color>
+    <color name="material_red">#F44336</color>
+    <color name="material_green">#4CAF50</color>
+    <color name="material_yellow">#FFEB3B</color>
+    <color name="material_orange">#FF9800</color>
+    <color name="material_purple">#9C27B0</color>
+    <color name="material_pink">#E91E63</color>
+    <color name="material_teal">#009688</color>
+    <color name="material_cyan">#00BCD4</color>
+    <color name="material_lime">#CDDC39</color>
+    <color name="material_indigo">#3F51B5</color>
+    <color name="material_brown">#795548</color>
+    <color name="material_grey">#9E9E9E</color>
+    <color name="material_blue_grey">#607D8B</color>
+
+    <!-- System colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
 </resources>
