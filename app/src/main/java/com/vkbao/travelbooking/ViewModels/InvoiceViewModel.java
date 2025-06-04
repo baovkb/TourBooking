@@ -32,7 +32,7 @@ public class InvoiceViewModel extends AndroidViewModel {
         return invoiceRepository.waitingForPayment(invoiceID);
     }
 
-    public CompletableFuture<CreateOrderResponse> zalopay_AddOrder(Invoice invoice) {
-        return invoiceRepository.zalopay_AddOrder(invoice);
-    }
+//    public CompletableFuture<CreateOrderResponse> zalopay_AddOrder(Invoice invoice) {
+//        return invoiceRepository.zalopay_AddOrder(invoice);
+//    }
 }

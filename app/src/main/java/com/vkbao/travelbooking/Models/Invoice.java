@@ -1,11 +1,60 @@
 package com.vkbao.travelbooking.Models;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 public class Invoice {
     private String invoice_id;
     private String order_id;
     private String payment_status;
     private String timestamp;
-    private int amount;
+    private int subtotal;
+    private int total;
+    private Map<String, String> voucher_ids;
+
+    public Invoice(
+            String invoice_id,
+            String order_id,
+            String payment_status,
+            String timestamp,
+            int subtotal,
+            int total,
+            Map<String, String> voucher_ids
+    ) {
+        this.invoice_id = invoice_id;
+        this.order_id = order_id;
+        this.payment_status = payment_status;
+        this.timestamp = timestamp;
+        this.subtotal = subtotal;
+        this.total = total;
+        this.voucher_ids = voucher_ids;
+    }
+
+    public int getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(int subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public Map<String, String> getVoucher_ids() {
+        return voucher_ids;
+    }
+
+    public void setVoucher_ids(Map<String, String> voucher_ids) {
+        this.voucher_ids = voucher_ids;
+    }
+
 
     public enum PaymentStatus {
         Pending,
@@ -14,22 +63,6 @@ public class Invoice {
     }
 
     public Invoice() {
-    }
-
-    public Invoice(Invoice another) {
-        this.invoice_id = another.invoice_id;
-        this.order_id = another.order_id;
-        this.payment_status = another.payment_status;
-        this.timestamp = another.timestamp;
-        this.amount = another.amount;
-    }
-
-    public Invoice(String invoice_id, String order_id, String payment_status, String timestamp, int amount) {
-        this.invoice_id = invoice_id;
-        this.order_id = order_id;
-        this.payment_status = payment_status;
-        this.timestamp = timestamp;
-        this.amount = amount;
     }
 
     public String getInvoice_id() {
@@ -62,13 +95,5 @@ public class Invoice {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 }
