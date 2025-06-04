@@ -62,6 +62,11 @@ public class AdminFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.main_screen_fragment, new ProfileFragment())
                         .commit();
+            } else if (i == R.id.voucher) {
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.main_screen_fragment, new AdminVoucherFragment())
+                        .commit();
             }
         });
 

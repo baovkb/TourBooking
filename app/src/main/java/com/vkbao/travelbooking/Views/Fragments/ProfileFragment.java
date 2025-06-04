@@ -11,12 +11,14 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.vkbao.travelbooking.Helper.Callback;
 import com.vkbao.travelbooking.Models.Account;
 import com.vkbao.travelbooking.R;
 import com.vkbao.travelbooking.ViewModels.AccountViewModel;
+import com.vkbao.travelbooking.Views.Dialogs.ConfirmDialog;
 import com.vkbao.travelbooking.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
@@ -72,11 +74,16 @@ public class ProfileFragment extends Fragment {
         });
 
         binding.logout.setOnClickListener(view -> {
-            try {
-                accountViewModel.logoutUser();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            ConfirmDialog logoutConfirm = new ConfirmDialog();
+            logoutConfirm.setMessage("Do you want to logout");
+            logoutConfirm.setPositiveBtn(() -> {
+                try {
+                    accountViewModel.logoutUser();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            logoutConfirm.show(getChildFragmentManager(), null);
         });
     }
 
