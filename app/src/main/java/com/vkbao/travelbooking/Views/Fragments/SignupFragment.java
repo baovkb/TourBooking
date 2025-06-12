@@ -32,6 +32,7 @@ import com.vkbao.travelbooking.databinding.FragmentSignupBinding;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 public class SignupFragment extends Fragment {
@@ -114,7 +115,13 @@ public class SignupFragment extends Fragment {
                             getAccountFuture.thenCombine(createCartFuture, (account, success) -> {
                                 if (account != null && success) {
                                     account.setCart_id(cartID);
-                                    accountViewModel.updateUser(account);
+                                    accountViewModel.updateUser(account).thenAccept(updateSuccess -> {
+                                        if (updateSuccess) {
+                                            accountViewModel.logoutUser();
+                                            FragmentManager fragmentManager = getParentFragmentManager();
+                                            fragmentManager.popBackStack();
+                                        }
+                                    });
                                 }
 
                                 return null;

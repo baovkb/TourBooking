@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
                             }
                             accountViewModel.getAccountByUID(uid).removeObserver(this);
                         } else {
-                            Log.d(TAG, "account is not exist");
+                            Log.d(TAG, "account does not exist");
                         }
                     }
                 });

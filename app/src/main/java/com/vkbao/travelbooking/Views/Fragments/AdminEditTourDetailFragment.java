@@ -76,10 +76,17 @@ public class AdminEditTourDetailFragment extends Fragment {
         categoryViewModel = new ViewModelProvider(requireActivity()).get(CategoryViewModel.class);
         itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
 
+        loadingIndicator(false);
         bannerUrl = "";
         bannerUri = null;
 
         initItem();
+    }
+
+    private void loadingIndicator(boolean isLoading) {
+        if (isLoading)
+            binding.loadingIndicator.setVisibility(View.VISIBLE);
+        else binding.loadingIndicator.setVisibility(View.GONE);
     }
 
     private void initItem() {
@@ -176,6 +183,7 @@ public class AdminEditTourDetailFragment extends Fragment {
         });
 
         binding.save.setOnClickListener(view -> {
+            loadingIndicator(true);
             //get value
             String title = binding.title.getText().toString();
             String address = binding.address.getText().toString();

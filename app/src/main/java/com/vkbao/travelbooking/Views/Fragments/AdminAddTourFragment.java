@@ -1,6 +1,7 @@
 package com.vkbao.travelbooking.Views.Fragments;
 
 import static android.app.Activity.RESULT_OK;
+import static android.view.View.VISIBLE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,8 +71,15 @@ public class AdminAddTourFragment extends Fragment {
         locationID = "";
         categoryID = "";
 
+        loadingIndicator(false);
         loadContent();
         setUpEvent();
+    }
+
+    private void loadingIndicator(boolean isLoading) {
+        if (isLoading)
+            binding.loadingIndicator.setVisibility(View.VISIBLE);
+        else binding.loadingIndicator.setVisibility(View.GONE);
     }
 
     public void loadContent() {
@@ -128,12 +136,20 @@ public class AdminAddTourFragment extends Fragment {
         });
 
         binding.save.setOnClickListener(view -> {
+            loadingIndicator(true);
             //get value
             String title = binding.title.getText().toString();
             String address = binding.address.getText().toString();
             String duration = binding.valDuration.getText().toString();
             String dateTour = binding.valStartDate.getText().toString();
-            int price = Integer.parseInt(binding.price.getText().toString());
+
+            int price = 0;
+            try {
+                 price = Integer.parseInt(binding.price.getText().toString());
+            } catch(Exception e) {
+
+            }
+
             String description = binding.description.getText().toString();
             String tourGuideName = binding.tourGuideName.getText().toString();
             String tourGuidePhone = binding.tourGuidePhone.getText().toString();
